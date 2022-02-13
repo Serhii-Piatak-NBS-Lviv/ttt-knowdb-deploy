@@ -8,7 +8,7 @@ import BurgerMenu from './BurgerMenu';
 
 // #region constants
 const STRONG_FONTCOLOR = '#444';
-const TITLE_FONTCOLOR = '#a03717';
+const TITLE_FONTCOLOR = '#1a1a1a';
 const SLOGAN_FONTCOLOR = '#595959';
 const NAV_BCKGND_MOBIL = '#242526';
 // #endregion
@@ -65,6 +65,7 @@ const nbsKnowDbLogo = css`
 const streamLogo = css`
 	width: 10vw;
 	height: auto;
+	opacity: 0;
 
 	@media (max-width: ${screenSizes.mediumTablet}) {
 		width: 18vw;
@@ -82,6 +83,23 @@ const noAfter = css`
 	&::after {
 		content: "" !important;
 	}
+`;
+
+const brandTitle = css`
+    width: 17vw;
+    height: auto;
+
+	@media (max-width: ${screenSizes.largeTablet}) {
+		width: 25vw;
+	};
+
+	@media (max-width: ${screenSizes.mediumTablet}) {
+		width: 38vw;
+	};
+
+	@media (max-width: ${screenSizes.smartPhones}) {
+		width: 43vw;
+	};
 `;
 
 const Strong = styled.strong`
@@ -103,11 +121,19 @@ const Strong = styled.strong`
 `;
 
 const Title = styled.h1`
+	@font-face {
+    font-family: 'Erato-Light';
+    src:url('../assets/fonts/erato/EratoLig.otf'); 
+        font-weight: normal;
+        font-style: normal;
+	}
+	
 	margin: 0;
 	color: ${TITLE_FONTCOLOR};
-	font-size: 2.5vw;
-    font-weight: 600;
-	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 4.8vw;
+    font-weight: 300;
+	font-family: 'Erato-Light';
+	text-transform: uppercase;
 
 	@media (max-width: ${screenSizes.largeTablet}) {
 		font-size: 3.5vw;
@@ -256,13 +282,14 @@ const Header = () => {
 		<div className={logoContainer}>
 			<img className={streamLogo} src={require('../assets/IBS Logo.png')} alt="ibs-logo" />
 			<div className={nbsKnowDbLogoContainer}>
-				<img className={nbsKnowDbLogo} src={require('../assets/knowledgebase_logo.png')} alt="knowledgebase-logo" />
+				<img className={nbsKnowDbLogo} src={require('../assets/purina_logo.png')} alt="knowledgebase-logo" />
 				<div>
-					<Title>
-						<Strong>Heads</Strong>
-						Together
-					</Title>
-					<Slogan>A Team Knowledge Base</Slogan>
+					{/* <Title>
+						Purina
+						<sup>&reg;</sup>						
+					</Title> */}
+					<img className={brandTitle} src={require('../assets/purina_title-sharpen.png')} alt="purina-title" />
+					<Slogan>Team Knowledge Base</Slogan>
 				</div>
 			</div>
 		</div>
