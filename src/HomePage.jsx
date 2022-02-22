@@ -6,6 +6,8 @@ import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
 import FullSpinner from './components/FullSpinner';
+import Sidebar from './components/sidebar/Sidebar';
+import {vwCategories, vwPopularArticles, vwLatestArticles} from './assets/apisimul/serverdata_main';
 
 // #region constants
 
@@ -32,7 +34,12 @@ const Body = () => {
 	return (
 		<>
 			<PageTitle text="Article Categories" />
-			<ComingSoon />
+			{/* <ComingSoon /> */}
+			<Sidebar 
+				categoryView = { vwCategories }
+				popularView = { vwPopularArticles }
+				latestView = { vwLatestArticles }
+			/>
 		</>
 	)
 };

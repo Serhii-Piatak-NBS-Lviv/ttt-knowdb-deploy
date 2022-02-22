@@ -1,47 +1,55 @@
-const vwCategories = [
+export const vwCategories = [
 	{
 		title: "Account Settings",
 		url: "https://demo.herothemes.com/knowhow/category/account-settings/",
 		parent_category: "",
+		amount: 6,
 	},
 	{
 		title: "API Questions",
 		url: "https://demo.herothemes.com/knowhow/category/api-questions/",
 		parent_category: "",
+		amount: 5,
 	},
 	{
 		title: "Billing",
 		url: "https://demo.herothemes.com/knowhow/category/billing/",
 		parent_category: "",
+		amount: 6,
 	},
 	{
 		title: "Copyright & Legal",
 		url: "https://demo.herothemes.com/knowhow/category/copyright-legal/",
 		parent_category: "",
+		amount: 5,
 	},
 	{
 		title: "Customization",
 		url: "https://demo.herothemes.com/knowhow/category/using-knowhow/customization/",
 		parent_category: "Using KnowHow",
+		amount: 3,
 	},
 	{
 		title: "Mobile Apps",
 		url: "https://demo.herothemes.com/knowhow/category/mobile-apps/",
 		parent_category: "",
+		amount: 5,
 	},
 	{
 		title: "Upgrading",
 		url: "https://demo.herothemes.com/knowhow/category/using-knowhow/upgrading-using-knowhow/",
 		parent_category: "Using KnowHow",
+		amount: 2,
 	},
 	{
 		title: "Using KnowHow",
 		url: "https://demo.herothemes.com/knowhow/category/using-knowhow/",
 		parent_category: "",
+		amount: 6,
 	},
 ];
 
-const vwPopularArticles = [
+export const vwPopularArticles = [
 	{
 		title: "How Secure Is My Password?",
 		url: "https://demo.herothemes.com/knowhow/how-secure-is-my-password/",
@@ -60,7 +68,7 @@ const vwPopularArticles = [
 	},
 ];
 
-const vwLatestArticles = [
+export const vwLatestArticles = [
 	{
 		title: "Customizing The Theme Colors",
 		url: "https://demo.herothemes.com/knowhow/customizing-the-theme-colors/",
@@ -79,7 +87,7 @@ const vwLatestArticles = [
 	},
 ];
 
-const vwContentIdx = [
+export const vwContentIdx = [
 	{
 		category: "Account Settings",
 		view: [
