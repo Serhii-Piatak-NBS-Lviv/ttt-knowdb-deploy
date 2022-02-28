@@ -14,15 +14,30 @@ import PropTypes from 'prop-types';
 // #endregion
 
 // #region component
-const propTypes = {};
+const propTypes = {
+	title: PropTypes.string.isRequired,
+	cssLookup: PropTypes.object,
+};
 
-const defaultProps = {};
+const defaultProps = {
+	title: "",
+	cssLookup: {},
+};
 
 /**
- * 
+ * <title> prop - is exactly the publication title
+ * <cssLookup> - is object contains classnames for css rules being applied
+ * <children> - assumes pictogram
  */
-const Publication = ({title}) => {
-	return <div>{title}</div>;
+const Publication = ({title, cssLookup, children}) => {
+	return (
+		<div className={cssLookup.container}>
+			{children}
+			<div className={cssLookup.title}>
+				{title}
+			</div>
+		</div>
+	);
 }
 
 Publication.propTypes = propTypes;

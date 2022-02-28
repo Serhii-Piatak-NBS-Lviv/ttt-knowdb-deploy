@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Publication from '../generic/Publication';
 import { cx, css } from '@emotion/css/macro';
+import {FaRegFileAlt, FaFilm} from 'react-icons/fa';
 
 // #region constants
 
@@ -17,6 +18,7 @@ const cssSideBar = css`
 const cssSideCategory = css`
 	width: 100%;
 	display: flex;
+	align-items: center;
 	gap: 3%;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	margin-bottom: 0.6vw;
@@ -27,11 +29,11 @@ const cssSideCategory = css`
 
 const cssSideCategoryAmount = css`
 	background: #a03717;
-    width: 5%;
+    width: 7%;
     text-align: center;
     border-radius: 50%;
     color: #fff;
-	font-size: 0.6vw;
+	font-size: 0.8vw;
 	font-weight: 600;
     display: flex;
     justify-content: center;
@@ -54,6 +56,25 @@ const cssSideBlockTitle = css`
 		border-bottom: 4px double #E5E5E5;
 		flex-grow: 1;
 	}
+`;
+
+const cssSidePublication = css`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 2%;
+	color: #45454C;
+	margin-bottom: 0.8vw;
+`;
+
+const cssSidePubTitle = css`
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-size: 0.85vw;
+    font-weight: 400;
+`;
+
+const cssSidePubLogo = css`
+	font-size: 1.5vw;
 `;
 // #endregion
 
@@ -100,9 +121,22 @@ function SidePublicationsList({apiView, title, cssPublicationStyling}) {
 		<>
 			<div className={cssSideBlockTitle}>{title}</div>
 			{
-				apiView.map(publication => <Publication
-					title = {publication.title}
-					/>)
+				apiView.map(
+					publication => 
+					<Publication
+						title = {publication.title}
+						cssLookup = {{
+							container: cssSidePublication,
+							title: cssSidePubTitle,
+						}}
+					>
+						{
+							publication.video ?
+							<FaFilm className={cssSidePubLogo} />
+							: <FaRegFileAlt className={cssSidePubLogo} />
+						}
+					</Publication>
+				)
 			}
 		</>
 	)

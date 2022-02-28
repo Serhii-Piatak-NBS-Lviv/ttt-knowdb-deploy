@@ -10,6 +10,7 @@ import { screenSizes } from '../assets/screenSizes';
 const MainContainer = styled.main`
 	width: 68vw;
 	padding: 0 16vw;
+	margin-bottom: 4vw;
 
 	@media (max-width: ${screenSizes.mediumTablet}) {
 		width: 84%;

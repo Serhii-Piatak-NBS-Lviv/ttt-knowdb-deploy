@@ -53,18 +53,22 @@ export const vwPopularArticles = [
 	{
 		title: "How Secure Is My Password?",
 		url: "https://demo.herothemes.com/knowhow/how-secure-is-my-password/",
+		video: false,
 	},
 	{
 		title: "What Technologies Are Used?",
 		url: "https://demo.herothemes.com/knowhow/what-technologies-are-used/",
+		video: true,
 	},
 	{
 		title: "Can I Change My Username?",
 		url: "https://demo.herothemes.com/knowhow/can-i-change-my-username/",
+		video: false,
 	},
 	{
 		title: "How Do I Change My Password?",
 		url: "https://demo.herothemes.com/knowhow/how-do-i-change-my-password/",
+		video: false,
 	},
 ];
 
@@ -72,18 +76,22 @@ export const vwLatestArticles = [
 	{
 		title: "Customizing The Theme Colors",
 		url: "https://demo.herothemes.com/knowhow/customizing-the-theme-colors/",
+		video: false,
 	},
 	{
 		title: "Recommended Plugins",
 		url: "https://demo.herothemes.com/knowhow/recommended-plugins/",
+		video: false,
 	},
 	{
 		title: "Modifying The Background Image & Color",
 		url: "https://demo.herothemes.com/knowhow/modifying-the-background-image-color/",
+		video: false,
 	},
 	{
 		title: "Chaning The KnowHow Header",
 		url: "https://demo.herothemes.com/knowhow/chaning-the-knowhow-header/",
+		video: false,
 	},
 ];
 
