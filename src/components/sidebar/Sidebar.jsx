@@ -43,7 +43,7 @@ const cssSideCategoryAmount = css`
 
 const cssSideBlockTitle = css`
 	color: #444;
-	margin-top: 2.5vw;
+	margin-top: 2vw;
 	margin-bottom: 1.5vw;
 	font-weight: 600;
     font-size: 0.9vw;
@@ -101,7 +101,7 @@ const Sidebar = ({categoryView, popularView, latestView}) => {
 	);
 }
 
-function SideCategoryList({apiView, title, cssCategoryStyling}) {
+function SideCategoryList({apiView, title}) {
 	return (
 			<>
 				<div className={cssSideBlockTitle}>{title}</div>
@@ -116,7 +116,7 @@ function SideCategoryList({apiView, title, cssCategoryStyling}) {
 	)
 };
 
-function SidePublicationsList({apiView, title, cssPublicationStyling}) {
+function SidePublicationsList({apiView, title}) {
 	return (
 		<>
 			<div className={cssSideBlockTitle}>{title}</div>

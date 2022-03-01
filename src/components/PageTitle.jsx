@@ -15,6 +15,7 @@ const styleRules = css`
 	font-size: 1.6vw;
 	border-bottom: 1px solid #e6e6e6;
 	padding-bottom: 1vw;
+	padding-top: 2vw;
 
 	@media (max-width: ${screenSizes.largeTablet}) {
 		font-size: 2.5vw;

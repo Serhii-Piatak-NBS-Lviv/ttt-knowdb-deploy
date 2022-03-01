@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import styled from '@emotion/styled/macro';
+import { cx, css } from '@emotion/css/macro';
 import PropTypes from 'prop-types';
 import MainContainer from './components/MainContainer';
 import ComingSoon from './components/ComingSoon';
@@ -7,14 +7,23 @@ import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
 import FullSpinner from './components/FullSpinner';
 import Sidebar from './components/sidebar/Sidebar';
-import {vwCategories, vwPopularArticles, vwLatestArticles} from './assets/apisimul/serverdata_main';
+import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from './assets/apisimul/serverdata_main';
+import HomeContent from './components/homepage/HomeContent';
 
 // #region constants
 
 // #endregion
 
 // #region styled-components
+const cssBody = css`
+	display: flex;
+	justify-content: space-between;
+    width: 100%;
+`;
 
+const cssHomeContent = css`
+	width: 65%;
+`;
 // #endregion
 
 // #region functions
@@ -33,13 +42,14 @@ const defaultProps = {};
 const Body = () => {
 	return (
 		<>
-			<PageTitle text="Article Categories" />
 			{/* <ComingSoon /> */}
-			<Sidebar 
-				categoryView = { vwCategories }
-				popularView = { vwPopularArticles }
-				latestView = { vwLatestArticles }
-			/>
+			<div className={cssHomeContent}>
+				<PageTitle text="Article Categories" />
+				<HomeContent 
+					contentIndex = {vwContentIdx} 
+					categoryView = {vwCategories} 
+				/>
+			</div>
 		</>
 	)
 };
@@ -53,7 +63,19 @@ const HomePage = () => {
 	});
 
 	return <MainContainer>
-		{loading ? <FullSpinner text="Retrieving Homepage..." /> : <Body />}
+		{
+			loading ? 
+				<FullSpinner text="Retrieving Homepage..." /> 
+			: 
+				<div className={cssBody}>
+					<Body />
+					<Sidebar 
+						categoryView = { vwCategories }
+						popularView = { vwPopularArticles }
+						latestView = { vwLatestArticles }
+					/>
+				</div>
+		}
 	</MainContainer>;
 }
 
