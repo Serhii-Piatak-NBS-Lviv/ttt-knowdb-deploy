@@ -19,10 +19,22 @@ const cssBody = css`
 	display: flex;
 	justify-content: space-between;
     width: 100%;
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		flex-direction: column;
+	};
 `;
 
 const cssHomeContent = css`
 	width: 65%;
+
+	@media(max-width: ${screenSizes.largeTablet}) {
+		width: 70%;
+	};
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		width: 100%;
+	};
 `;
 // #endregion
 
