@@ -4,8 +4,9 @@ import styled from '@emotion/styled';
 import { screenSizes } from '../assets/screenSizes';
 import PropTypes from 'prop-types';
 import useResizeAware from 'react-resize-aware';
-import {FaSearch} from 'react-icons/fa';
+import {FaSearch, FaRegHandPointer, FaRegEnvelope} from 'react-icons/fa';
 import Typing from './generic/Typing';
+import {vwContentIdx} from '../assets/apisimul/serverdata_main';
 
 // #region constants
 const SECTION_BACKGROUND = '#f5f5f5';
@@ -94,8 +95,58 @@ const TypeAnim = css`
 	display: flex;
     align-items: center;
     width: 3vw;
-    position: relative;
-    left: -5%;
+    position: absolute;
+    left: 79%;
+    top: 13.8vw;
+`;
+
+const liveSearchContainer = css`
+	position: absolute;
+    width: 63%;
+    background-color: #fffdd2;
+    border: 1px solid rgb(209,209,209);
+    left: 20%;
+    top: 15.5vw;
+	box-sizing: border-box;
+	padding: 0;
+	font-family: "Open Sans",Helvetica,Arial,sans-serif;
+
+	& > li {
+		display: flex;
+		align-items: center;
+		list-style: none;
+		padding: 0.8% 2%;
+		color: #45454C;
+	}
+`;
+
+const keepTypeTip = css`
+	justify-content: center;
+	color: #a03717 !important;
+	gap: 1%;
+`;
+
+const contactLiveSearch = css`
+	background-color: #e6e28f;
+	gap: 3%;
+
+	& > a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 7%;
+		width: 10%;
+		background-color: #a03717;
+		color: #fff;
+		text-decoration: none;
+		padding: 0.5% 0.8%;
+		border-radius: 1vw;
+		box-sizing: border-box;
+	};
+
+	& > a:hover {
+		background-color: #4a4a4a;
+	};
 `;
 // #endregion
 
@@ -109,11 +160,43 @@ const propTypes = {};
 const defaultProps = {};
 
 /**
- * 
+ *  This is components compound. In addition to form component itself contains:
+ *  - <TypingAnimation> component: displays while user typing a search query. Two seconds
+ *   after user stops typing this component has to be hidden again
+ *  - <QueryLiveSearch>: a box displaying search results while user typing a                                  query.   
+ *  - <ContactInvite>: default nested "search result" contains proposition for user to fill contact form
  */
 const TypingAnimation = () => {
 	return <div className={TypeAnim}><Typing /></div>
+};
+
+const ContactInvite = () => {
+	return (
+		<li className={contactLiveSearch}>
+			Steel haven't an answer after few queries? 
+			<a href="#">
+				<FaRegEnvelope />
+				<div>Ask Us!</div>
+			</a>
+		</li>
+	)
 }
+
+
+const QueryLiveSearch = ({isTyping, data}) => {
+	return (
+		<ul className={liveSearchContainer}>
+			{isTyping && <li className={keepTypeTip}><FaRegHandPointer /> Keep typing for live search results...</li>}
+			{
+				!data.length ? <li>--- No results found ---</li> 
+				: data.map((category) => category.view.map((article) => <li>{article.title}</li>))
+				
+			}
+			<ContactInvite />
+		</ul>
+	)
+};
+
 
 const SearchForm = () => {
 	const [resizeListener, sizes] = useResizeAware();
@@ -127,6 +210,25 @@ const SearchForm = () => {
 		setAppState(appSt => ({...appSt, loading: true}));
 		setAppState(appSt => ({...appSt, query: target.value}));
 		// ToDo: getting filtered articles
+		if (target.value) {
+			let dataQueried = vwContentIdx.reduce(
+				(acc, itm) => {
+					let results = itm.view.filter(
+						(article) => article.title.toLowerCase().includes(target.value.toLowerCase())
+					);
+					results.length && acc.push({
+						category: itm.category,
+						view: results,
+					});
+					return acc;
+				}
+			,[]);
+			// console.log(dataQueried);
+			setAppState(appSt => ({...appSt, data: dataQueried}));
+		} else {
+			setAppState(appSt => ({...appSt, data: []}));
+		};
+
 		delayStateLoadingFalse(2000);
 	}
 
@@ -140,6 +242,7 @@ const SearchForm = () => {
 			onChange={handleType}
 		/>
 		{ appState.loading && <TypingAnimation /> }
+		{ appState.query && <QueryLiveSearch isTyping={appState.loading} data={appState.data} />}
 	</Section>;
 }
 
