@@ -76,10 +76,10 @@ const cssSideCategoryAmount = css`
 		font-size: 2.5vw;
 	};
 
-	@media(max-width: ${screenSizes.smartPhones} {
+	@media(max-width: ${screenSizes.smartPhones}) {
 		width: 7%;
 		font-size: 2.9vw;
-	}
+	};
 `;
 
 const cssSideBlockTitle = css`
