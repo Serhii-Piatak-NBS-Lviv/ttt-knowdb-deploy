@@ -1,13 +1,17 @@
 import {useState} from 'react';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
 import styled from '@emotion/styled';
 import { screenSizes } from '../assets/screenSizes';
 import PropTypes from 'prop-types';
 import useResizeAware from 'react-resize-aware';
 import {FaSearch, FaRegHandPointer, FaRegEnvelope, FaFilm, FaRegFileAlt} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
+
 import Typing from './generic/Typing';
 import {vwContentIdx} from '../assets/apisimul/serverdata_main';
 import Publication from './generic/Publication';
+import {searchTypingSelector, searchQuerySelector} from '../atoms';
 
 // #region constants
 const SECTION_BACKGROUND = '#f5f5f5';
@@ -18,8 +22,6 @@ const INPUT_PLACEHOLDER = 'Looking for answer? Just start typing a search term!'
 const INPUT_PLACEHOLDER_PHONE = 'Need answer? Type a search term!';
 
 const initState = {
-	loading: false,
-	query: "",
 	data: [],
 }
 // #endregion
@@ -216,36 +218,36 @@ const contactLiveSearch = css`
 	background-color: #e6e28f;
 	gap: 3%;
 
-	& > a {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 7%;
-		width: 10%;
-		background-color: #a03717;
-		color: #fff;
-		text-decoration: none;
-		padding: 0.5% 0.8%;
-		border-radius: 1vw;
-		box-sizing: border-box;
-
-		@media (max-width: 1270px) {width: 14%};
-		@media (max-width: ${screenSizes.largeTablet}) {width: 16%};
-		@media (max-width: ${screenSizes.mediumTablet}) {width: 20%};
-		@media (max-width: 538px) {width: 30%};
-		@media (max-width: 350px) {width: 40%};
-	};
-
-	& > a:hover {
-		background-color: #4a4a4a;
-	};
-
 	@media (max-width: 1270px) {font-size: 1.2vw};
 	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.5vw};
 	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.3vw};
 	@media (max-width: 538px) {font-size: 2.7vw};
 	@media (max-width: ${screenSizes.smartPhones}) {font-size: 3.2vw};
 	@media (max-width: 350px) {font-size: 3.6vw};
+`;
+
+const btnLiveSearchContact = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 7%;
+	width: 10%;
+	background-color: #a03717;
+	color: #fff;
+	text-decoration: none;
+	padding: 0.5% 0.8%;
+	border-radius: 1vw;
+	box-sizing: border-box;
+
+	@media (max-width: 1270px) {width: 14%};
+	@media (max-width: ${screenSizes.largeTablet}) {width: 16%};
+	@media (max-width: ${screenSizes.mediumTablet}) {width: 20%};
+	@media (max-width: 538px) {width: 30%};
+	@media (max-width: 350px) {width: 40%};
+
+	&:hover {
+		background-color: #4a4a4a;
+	};
 `;
 
 const liveSearchItm = css`
@@ -357,13 +359,22 @@ const TypingAnimation = () => {
 };
 
 const ContactInvite = () => {
+	const [, setIsTyping] = useRecoilState(searchTypingSelector);
+	const [, setSearchQuery] = useRecoilState(searchQuerySelector);
+
+	const handleClick = () => {
+		setIsTyping(false);
+		setSearchQuery("");
+		document.getElementById('search-field').value="";
+	};
+
 	return (
 		<li className={contactLiveSearch}>
 			Steel haven't an answer after few queries? 
-			<a href="#">
+			<Link onClick={handleClick} className={btnLiveSearchContact} to="/contact">
 				<FaRegEnvelope />
 				<div>Ask Us!</div>
-			</a>
+			</Link>
 		</li>
 	)
 };
@@ -388,7 +399,9 @@ const LiveSearchItem = ({content, category}) => {
 	);
 };
 
-const QueryLiveSearch = ({isTyping, data}) => {
+const QueryLiveSearch = ({data}) => {
+	const isTyping = useRecoilValue(searchTypingSelector);
+
 	return (
 		<ul className={liveSearchContainer}>
 			{isTyping && <li className={keepTypeTip}><FaRegHandPointer /> Keep typing for live search results...</li>}
@@ -405,15 +418,18 @@ const QueryLiveSearch = ({isTyping, data}) => {
 const SearchForm = () => {
 	const [resizeListener, sizes] = useResizeAware();
 	const [appState, setAppState] = useState(initState);
+	const [isLoading, setIsLoading] = useRecoilState(searchTypingSelector);
+	const [searchQuery, setSearchQuery] = useRecoilState(searchQuerySelector);
 
 	const delayStateLoadingFalse = (delay) => {
-        setTimeout(() => setAppState(appSt => ({...appSt, loading: false})), delay);
+		setTimeout(() => setIsLoading(false), delay);
     };
 
 	const handleType = ({target}) => {
-		setAppState(appSt => ({...appSt, loading: true}));
-		setAppState(appSt => ({...appSt, query: target.value}));
-		// ToDo: getting filtered articles
+		setIsLoading(true);
+		setSearchQuery(target.value);
+
+		// Getting filtered articles
 		if (target.value) {
 			let dataQueried = vwContentIdx.reduce(
 				(acc, itm) => {
@@ -440,13 +456,14 @@ const SearchForm = () => {
 		{resizeListener}
 		<button className={searchIco} type="submit" disabled><FaSearch /> </button>	
 		<Input
+			id="search-field"
 			placeholder={
 				sizes.width <= parseInt(screenSizes.mediumTablet) ? INPUT_PLACEHOLDER_PHONE : INPUT_PLACEHOLDER
 			}
 			onChange={handleType}
 		/>
-		{ appState.loading && <TypingAnimation /> }
-		{ appState.query && <QueryLiveSearch isTyping={appState.loading} data={appState.data} />}
+		{ isLoading && <TypingAnimation /> }
+		{ searchQuery && <QueryLiveSearch data={appState.data} />}
 	</Section>;
 }
 

@@ -3,8 +3,11 @@ import { cx, css } from '@emotion/css/macro';
 import styled from '@emotion/styled/macro';
 import PropTypes, { string } from 'prop-types';
 import { Link } from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+
 import { screenSizes } from '../assets/screenSizes';
 import BurgerMenu from './BurgerMenu';
+import {searchTypingSelector, searchQuerySelector} from '../atoms';
 
 // #region constants
 const STRONG_FONTCOLOR = '#444';
@@ -23,7 +26,7 @@ const logoContainer = css`
 
 	@media (max-width: ${screenSizes.mediumTablet}) {
 		width: 90vw;
-    	padding: 3vw 0;
+		padding: 3vw 0;
 	};
 
 `
@@ -257,19 +260,28 @@ const defaultProps = {};
  * 
  */
 const Menu = ({ menuContainerStyles, menuItemStyles }) => {
+	const [, setIsTyping] = useRecoilState(searchTypingSelector);
+	const [, setSearchQuery] = useRecoilState(searchQuerySelector);
+
+	const handleClick = () => {
+		setIsTyping(false);
+		setSearchQuery("");
+		document.getElementById('search-field').value="";
+	};
+
 	return <ul className={menuContainerStyles}>
-		<Link to="/home">
+		<Link onClick={handleClick} to="/home">
 			<li className={menuItemStyles}>Home</li>
 		</Link>
-		<Link to="/faqs">
+		<Link onClick={handleClick} to="/faqs">
 			<li className={menuItemStyles}>FAQs</li>
 		</Link>
-		<Link to="/blogs">
+		<Link onClick={handleClick} to="/blogs">
 			<li className={menuItemStyles}>
 				Blogs
 			</li>
 		</Link>
-		<Link to="/contact">
+		<Link onClick={handleClick} to="/contact">
 			<li className={cx(menuItemStyles, noAfter)}>
 				Contact
 			</li>

@@ -3,6 +3,7 @@ import { cx, css } from '@emotion/css';
 import styled from '@emotion/styled/macro';
 import PropTypes from 'prop-types';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import {RecoilRoot} from 'recoil';
 
 import { Header, Menu, mnuStyleDefault, mnuItemStyleDefault } from './components/Header.jsx';
 import SearchForm from './components/SearchForm';
@@ -93,7 +94,7 @@ const defaultProps = {};
  */
 const App = () => {
   return (
-    <>
+    <RecoilRoot>
       <Header />
       <noindex>
         <SearchForm />
@@ -115,7 +116,7 @@ const App = () => {
           src={require('./assets/nestle_logo.png')}
           alt="nestle-logo"></img>
       </Footer>
-    </>
+    </RecoilRoot>
   );
 }
 
