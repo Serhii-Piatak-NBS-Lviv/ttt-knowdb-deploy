@@ -3,6 +3,7 @@ import {FaFolder, FaRegFileAlt, FaFilm} from 'react-icons/fa';
 import { cx, css } from '@emotion/css/macro';
 import Publication from '../generic/Publication';
 import {screenSizes} from '../../assets/screenSizes';
+import {nanoid} from 'nanoid';
 
 // #region styled-components
 const container = css`
@@ -168,12 +169,13 @@ const HomeCategory = ({title, amount, categoryView, categoryIndex}) => {
 			{
 				// Subcategories titles rendering
 				categoryView ? 
-					categoryView.map(subcatg => 		<Publication
+					categoryView.map(subcatg => <Publication
 							title = {subcatg.title}
 							cssLookup = {{
 								container: homeContentPublication,
 								title: homeContentPubTitle,
 							}}
+							key = {nanoid(5)}
 						>
 							<FaFolder
 								className={homeContentSubLogo}
@@ -193,6 +195,7 @@ const HomeCategory = ({title, amount, categoryView, categoryIndex}) => {
 							container: homeContentPublication,
 							title: homeContentPubTitle,
 						}}
+						key = {nanoid(5)}
 					>
 						{
 							publication.video ?
@@ -230,6 +233,7 @@ const HomeContent = ({contentIndex, categoryView}) => {
 							amount = {`(${amount})`}
 							categoryView = {subcatgs}
 							categoryIndex = {inside[0].view}
+							key = {nanoid(5)}
 						/>
 						)
 					}

@@ -4,6 +4,7 @@ import Publication from '../generic/Publication';
 import { cx, css } from '@emotion/css/macro';
 import {FaRegFileAlt, FaFilm} from 'react-icons/fa';
 import {screenSizes} from '../../assets/screenSizes';
+import {nanoid} from 'nanoid';
 
 // #region constants
 
@@ -185,7 +186,9 @@ function SideCategoryList({apiView, title}) {
 				<div className={cssSideBlockTitle}>{title}</div>
 				{
 					apiView.map(category => <SideCategory
-						title = { category.title } amount = {category.amount} 
+						title = { category.title } 
+						amount = {category.amount} 
+						key = {nanoid(5)}
 						/>)
 				}
 				
@@ -207,6 +210,7 @@ function SidePublicationsList({apiView, title}) {
 							container: cssSidePublication,
 							title: cssSidePubTitle,
 						}}
+						key = {nanoid(5)}
 					>
 						{
 							publication.video ?

@@ -1,4 +1,4 @@
-import {atom, selector} from 'recoil';
+import {atom, selector, atomFamily} from 'recoil';
 
 // ================ This part serves the state of live search form ============
 export const searchFormState = atom({
@@ -31,4 +31,53 @@ export const searchQuerySelector = selector({
 		const searchFormAtom = {...get(searchFormState), query: newVal};
 		set(searchFormState, searchFormAtom);
 	},
+});
+
+// ==== This part serves main content indexing =====
+// export const catalogueCategoriesAtom = atom({
+// 	key: "catalogueCategories",
+// 	default: []
+// });
+
+// export const allCategorySelector = selector({
+// 	key: "getAllCategories",
+// 	get: ({get}) => ({...get(catalogueCategoriesAtom)}),
+// 	set: ({get, set}, newCategoryTitle) => {
+// 		const catgCatalog = {...get(catalogueCategoriesAtom)};
+// 		catgCatalog.push({
+// 			id: `category-${nanoid(5)}`,
+// 			title: newCategoryTitle,
+// 		});
+// 		set(catalogueCategoriesAtom, catgCatalog);
+// 	}
+// });
+
+// export const indexArticles = atom({
+// 	key: "idxArticle",
+// 	default: []
+// });
+
+export const categoryAtom = atomFamily({
+	key: "category",
+	default: {
+		title: "",
+		url: "",
+		parent_category: "",
+		amount: 0,
+		subcategories: [],
+		articles: [],
+	}
+});
+
+export const articleAtom = atomFamily({
+	key: "article",
+	default: {
+		title: "",
+		url: "",
+		isVideo: false,
+		isPopular: false,
+		isLatest: false,
+		description: "",
+		content: "",
+	}
 });
