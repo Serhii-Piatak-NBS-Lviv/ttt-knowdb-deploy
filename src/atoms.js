@@ -34,10 +34,15 @@ export const searchQuerySelector = selector({
 });
 
 // ==== This part serves main content indexing =====
-// export const catalogueCategoriesAtom = atom({
-// 	key: "catalogueCategories",
-// 	default: []
-// });
+export const catalogueCategoriesAtom = atom({
+	key: "catalogueCategories",
+	default: [],
+});
+
+export const catalogueArticlesAtom = atom({
+	key: "catalogueArticles",
+	default: [],
+});
 
 // export const allCategorySelector = selector({
 // 	key: "getAllCategories",
