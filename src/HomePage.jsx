@@ -9,6 +9,7 @@ import FullSpinner from './components/FullSpinner';
 import Sidebar from './components/sidebar/Sidebar';
 import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from './assets/apisimul/serverdata_main';
 import HomeContent from './components/homepage/HomeContent';
+import useEnumSiteContent from './hooks/EnumSiteContent';
 
 // #region constants
 
@@ -68,7 +69,8 @@ const Body = () => {
 
 const HomePage = () => {
 	const [loading, setLoading] = useState(true);
-
+	const [categories, articles] = useEnumSiteContent();
+	
 	useEffect(async () => {
 		await new Promise(resolve => setTimeout(resolve,1000));
 		setLoading(false);

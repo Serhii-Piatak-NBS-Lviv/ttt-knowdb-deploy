@@ -19,8 +19,7 @@ function useEnumSiteContent(requestURL) {
 
 	const addCategory = useRecoilCallback(({set}) => {
 		return (oCategory, subCatgs, articles) => {
-			set(catalogueCategoriesAtom, x => [...x, oCategory.id]);
-			set(categoryAtom(oCategory.id), {
+			const newCategoryObj = {
 				id: oCategory.id,
 				title: oCategory.title,
 				url: oCategory.url,
@@ -28,7 +27,11 @@ function useEnumSiteContent(requestURL) {
 				amount: articles.length,
 				subcategories: [...subCatgs],
 				articles: [...articles],
-			});
+			};
+			set(catalogueCategoriesAtom, x => [...x, oCategory.id]);
+			set(categoryAtom(oCategory.id), newCategoryObj);
+			// console.log(`----Adding a new category---`);
+			// console.log(JSON.stringify(newCategoryObj));
 		};
 	});
 
@@ -36,25 +39,32 @@ function useEnumSiteContent(requestURL) {
 		return (oArticle) => {
 			const isFromPopular = vwPopularArticles.reduce((result, article) => {
 				if (article.id === oArticle.id) result = true;
+				return result;
 			}, false);
 
 			const isFromLatest = vwLatestArticles.reduce((result, article) => {
 				if (article.id === oArticle.id) result = true;
+				return result;
 			}, false);
 
-			set(catalogueArticlesAtom, x => [...x, oArticle.id]);
-			set(articleAtom(oArticle.id), {
+			const newArticleObj = {
 				id: oArticle.id,
 				title: oArticle.title,
 				url: oArticle.url,
-				isVideo: oArticle.isVideo,
+				isVideo: oArticle.video,
 				isPopular: isFromPopular,
 				isLatest: isFromLatest,
-			});
+			};
+
+			set(catalogueArticlesAtom, x => [...x, oArticle.id]);
+			set(articleAtom(oArticle.id), newArticleObj);
+
+			console.log(`----Adding a new article---`);
+			console.log(JSON.stringify(newArticleObj));
 		};
 	});
 
-	useEffect(() => {
+	useEffect(() => { 
 		// ToDo: perform query in accordance to requestURL:
 		// simultaneous requests for:
 		// - categories view;
@@ -64,8 +74,9 @@ function useEnumSiteContent(requestURL) {
 		// - all FAQ view.
 
 		// for spinning up static data set from JSON files being used
+	
 
-		/** Enumerating categories */
+		//**Enumerating categories */
 		vwCategories.map((category) => {
 
 			setCategoryCatalogue(x => [...x, {
@@ -73,9 +84,10 @@ function useEnumSiteContent(requestURL) {
 				categoryTitle: category.title,
 			}]);
 
-			// Getting appropriate subcategories id's for this category
+			// Getting appropriate subcategories id's for this category 
 			const subCtg = vwCategories.reduce((acc, item) => {
 				if (item.parent_category === category.title) acc.push(item.id);
+				return acc;
 			}, []);
 
 			// Getting appropriate articles for this category
@@ -83,27 +95,29 @@ function useEnumSiteContent(requestURL) {
 				if (item.category === category.title) {
 					item.view.map((article) => acc.push(article.id));
 				};
+				return acc;
 			}, []);
 
 			// adding category atom to the atom family
 			addCategory(category, subCtg, ctgArticles);
 		});
 
-		/** Enumerating articles */
+		//** Enumerating articles */
 		vwContentIdx.map((ctg) => {
 			ctg.view.map((article) => {
 
 				setArticleCatalogue(x => [...x, {
-					articleId: category.id,
-					articleTitle: category.title,
+					articleId: article.id,
+					articleTitle: article.title,
 				}]);
 
 				addArticle(article);
 			});
 		});
+		
 	}, []);
 
 	return [categoryCatalogue, articleCatalogue];
-}
+};
 
 export default useEnumSiteContent;
