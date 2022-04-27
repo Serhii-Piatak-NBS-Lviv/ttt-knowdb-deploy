@@ -58,10 +58,7 @@ const Body = () => {
 			{/* <ComingSoon /> */}
 			<div className={cssHomeContent}>
 				<PageTitle text="Article Categories" />
-				<HomeContent 
-					contentIndex = {vwContentIdx} 
-					categoryView = {vwCategories} 
-				/>
+				<HomeContent />
 			</div>
 		</>
 	)
@@ -83,11 +80,11 @@ const HomePage = () => {
 			: 
 				<div className={cssBody}>
 					<Body />
-					<Sidebar 
+					{/* <Sidebar 
 						categoryView = { vwCategories }
 						popularView = { vwPopularArticles }
 						latestView = { vwLatestArticles }
-					/>
+					/> */}
 				</div>
 		}
 	</MainContainer>;

@@ -59,8 +59,8 @@ function useEnumSiteContent(requestURL) {
 			set(catalogueArticlesAtom, x => [...x, oArticle.id]);
 			set(articleAtom(oArticle.id), newArticleObj);
 
-			console.log(`----Adding a new article---`);
-			console.log(JSON.stringify(newArticleObj));
+			// console.log(`----Adding a new article---`);
+			// console.log(JSON.stringify(newArticleObj));
 		};
 	});
 
@@ -114,9 +114,10 @@ function useEnumSiteContent(requestURL) {
 				addArticle(article);
 			});
 		});
-		
+		// ToDo: return cleanup function to avoid duplication while navigating menu links
 	}, []);
 
+	
 	return [categoryCatalogue, articleCatalogue];
 };
 

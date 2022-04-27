@@ -1,6 +1,6 @@
-import {atom, selector, atomFamily} from 'recoil';
+import {atom, selector, atomFamily, selectorFamily} from 'recoil';
 
-// ================ This part serves the state of live search form ============
+// ********** This part serves the state of live search form *********
 export const searchFormState = atom({
 	key: "liveSearchForm",
 	default: {
@@ -33,7 +33,7 @@ export const searchQuerySelector = selector({
 	},
 });
 
-// ==== This part serves main content indexing =====
+// ***** This part serves main content indexing *******
 export const catalogueCategoriesAtom = atom({
 	key: "catalogueCategories",
 	default: [],
@@ -43,24 +43,6 @@ export const catalogueArticlesAtom = atom({
 	key: "catalogueArticles",
 	default: [],
 });
-
-// export const allCategorySelector = selector({
-// 	key: "getAllCategories",
-// 	get: ({get}) => ({...get(catalogueCategoriesAtom)}),
-// 	set: ({get, set}, newCategoryTitle) => {
-// 		const catgCatalog = {...get(catalogueCategoriesAtom)};
-// 		catgCatalog.push({
-// 			id: `category-${nanoid(5)}`,
-// 			title: newCategoryTitle,
-// 		});
-// 		set(catalogueCategoriesAtom, catgCatalog);
-// 	}
-// });
-
-// export const indexArticles = atom({
-// 	key: "idxArticle",
-// 	default: []
-// });
 
 export const categoryAtom = atomFamily({
 	key: "category",
@@ -86,3 +68,32 @@ export const articleAtom = atomFamily({
 		content: "",
 	}
 });
+
+export const totalCtgArticleSelector = selectorFamily({
+	key: "totalCtgArticleSelector",
+	get: id => ({get}) => {
+		const ctgr = get(categoryAtom(id));
+		let total = ctgr.amount;
+		if (ctgr.subcategories.length) {
+				ctgr.subcategories.forEach(subcatId => {
+				const subctgr = get(categoryAtom(subcatId));
+				total += subctgr.amount;
+			});
+		}
+		
+		return total;
+	}
+});
+
+export const publicationSelector = selectorFamily({
+	key: "publicationSelector",
+	get: ({id, type}) => ({get}) => {
+		let publicationItem;
+		if (type === 'article') {
+			publicationItem = {...get(articleAtom(id))};
+		} else {
+			publicationItem = {...get(categoryAtom(id))};
+		};
+		return publicationItem;
+	}
+})

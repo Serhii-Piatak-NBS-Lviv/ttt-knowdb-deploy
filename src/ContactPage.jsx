@@ -277,11 +277,11 @@ const ContactPage = () => {
 			: 
 				<div className={cssBody}>
 					<Body />
-					<Sidebar 
+					{/* <Sidebar 
 						categoryView = { vwCategories }
 						popularView = { vwPopularArticles }
 						latestView = { vwLatestArticles }
-					/>
+					/> */}
 				</div>
 		}
 	</MainContainer>;
