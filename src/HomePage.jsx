@@ -80,11 +80,7 @@ const HomePage = () => {
 			: 
 				<div className={cssBody}>
 					<Body />
-					{/* <Sidebar 
-						categoryView = { vwCategories }
-						popularView = { vwPopularArticles }
-						latestView = { vwLatestArticles }
-					/> */}
+					<Sidebar />
 				</div>
 		}
 	</MainContainer>;

@@ -79,6 +79,48 @@ const homeContentSubLogo = css`
 		font-size: 3.5vw;
 	}
 `;
+
+const cssSidePublication = css`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 2%;
+	color: #45454C;
+	margin-bottom: 0.8vw;
+`;
+
+const cssSidePubTitle = css`
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-size: 0.8vw;
+    font-weight: 400;
+
+	@media(max-width: ${screenSizes.largeTablet}) {
+		font-size: 1.3vw;
+		line-height: 1.75vw;
+	};
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		font-size: 2.3vw;
+		line-height: 4.75vw;
+	};
+
+	@media(max-width: ${screenSizes.smartPhones}) {
+		font-size: 2.8vw;
+		line-height: 5.75vw;
+	}
+`;
+
+const cssSidePubLogo = css`
+	font-size: 1.8vw;
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		font-size: 2.8vw;
+	};
+
+	@media(max-width: ${screenSizes.smartPhones}) {
+		font-size: 3.9vw;
+	}
+`;
 // #endregion
 
 // #region functions
@@ -94,6 +136,12 @@ const defineCSS = (styleOption) => {
 			return ({
 				container: homeContentPublication,
 				title: homeContentPubTitle,
+			});
+			break;
+		case "Sidebar->Article":
+			return ({
+				container: cssSidePublication,
+				title: cssSidePubTitle,
 			});
 			break;
 	}
@@ -124,7 +172,7 @@ const Publication = ({id, cssOption, type}) => {
 		<div className={cssLookup.container}>
 			{/****** before-Pictograms rendering */}
 			{
-				type === 'article' ? 
+				type === 'article' && cssOption === "Homepage->Article" ? 
 					publcItem.isVideo ? <FaFilm className={homeContentPubLogo} />
 					: <FaRegFileAlt className={homeContentPubLogo} />
 				: null
@@ -132,6 +180,12 @@ const Publication = ({id, cssOption, type}) => {
 			{
 				type === 'subcategory' ?
 					<FaFolder className={homeContentSubLogo} />
+				: null
+			}
+			{
+				type === 'article' && cssOption === "Sidebar->Article" ? 
+					publcItem.isVideo ? <FaFilm className={cssSidePubLogo} />
+					: <FaRegFileAlt className={cssSidePubLogo} />
 				: null
 			}
 			<div className={cssLookup.title}>

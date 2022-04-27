@@ -96,4 +96,30 @@ export const publicationSelector = selectorFamily({
 		};
 		return publicationItem;
 	}
+});
+
+export const popularArticleSelector = selector({
+	key: "popularArticleSelector",
+	get: ({get}) => {
+		const listArticles = get(catalogueArticlesAtom);
+		const popularArticles = [];
+		listArticles.forEach(id => {
+			const objArticle = {...get(articleAtom(id))};
+			if (objArticle.isPopular) popularArticles.push(objArticle.id);
+		});
+		return popularArticles;
+	}
+});
+
+export const latestArticleSelector = selector({
+	key: "latestArticleSelector",
+	get: ({get}) => {
+		const listArticles = get(catalogueArticlesAtom);
+		const latestArticles = [];
+		listArticles.forEach(id => {
+			const objArticle = {...get(articleAtom(id))};
+			if (objArticle.isLatest) latestArticles.push(objArticle.id);
+		});
+		return latestArticles;
+	}
 })

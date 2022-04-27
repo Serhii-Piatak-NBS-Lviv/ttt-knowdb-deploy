@@ -117,17 +117,6 @@ const HomeCategory = ({ id }) => {
 								type = "subcategory"
 							/>
 					)
-				// 	categoryView.map(subcatg => <Publication
-				// 			title = {subcatg.title}
-				// 			cssLookup = {{
-				// 				container: homeContentPublication,
-				// 				title: homeContentPubTitle,
-				// 			}}
-				// 			key = {nanoid(5)}
-				// 		>
-				
-				// 		</Publication>
-				// 	)
 				: null
 			}
 
@@ -145,8 +134,8 @@ const HomeCategory = ({ id }) => {
 				: null
 			}
 			
-		</div>
-	)
+			</div>
+		)
 	}
 }
 

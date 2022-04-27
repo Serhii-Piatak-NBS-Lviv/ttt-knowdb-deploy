@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Publication from '../generic/Publication';
 import { cx, css } from '@emotion/css/macro';
-import {FaRegFileAlt, FaFilm} from 'react-icons/fa';
+import {useRecoilValue} from 'recoil';
 import {screenSizes} from '../../assets/screenSizes';
-import {nanoid} from 'nanoid';
+import {catalogueCategoriesAtom, categoryAtom, popularArticleSelector, latestArticleSelector} from '../../atoms';
 
 // #region constants
 
@@ -113,48 +113,6 @@ const cssSideBlockTitle = css`
 		font-size: 3.4vw;
 	}
 `;
-
-const cssSidePublication = css`
-	width: 100%;
-	display: flex;
-	align-items: center;
-	gap: 2%;
-	color: #45454C;
-	margin-bottom: 0.8vw;
-`;
-
-const cssSidePubTitle = css`
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    font-size: 0.8vw;
-    font-weight: 400;
-
-	@media(max-width: ${screenSizes.largeTablet}) {
-		font-size: 1.3vw;
-		line-height: 1.75vw;
-	};
-
-	@media(max-width: ${screenSizes.mediumTablet}) {
-		font-size: 2.3vw;
-		line-height: 4.75vw;
-	};
-
-	@media(max-width: ${screenSizes.smartPhones}) {
-		font-size: 2.8vw;
-		line-height: 5.75vw;
-	}
-`;
-
-const cssSidePubLogo = css`
-	font-size: 1.8vw;
-
-	@media(max-width: ${screenSizes.mediumTablet}) {
-		font-size: 2.8vw;
-	};
-
-	@media(max-width: ${screenSizes.smartPhones}) {
-		font-size: 3.9vw;
-	}
-`;
 // #endregion
 
 // #region functions
@@ -169,54 +127,41 @@ const defaultProps = {};
 /**
  * 
  */
-const Sidebar = ({categoryView, popularView, latestView}) => {
+const Sidebar = () => {
+	const categories = useRecoilValue(catalogueCategoriesAtom);
+	const popularArtcList = useRecoilValue(popularArticleSelector);
+	const latestArtcList = useRecoilValue(latestArticleSelector);
 
 	return (
 		<div className={cssSideBar}>
-			<SideCategoryList title = "Categories" apiView = { categoryView } />
-			<SidePublicationsList title="Popular Articles" apiView = { popularView } />
-			<SidePublicationsList title="Latest Articles" apiView = { latestView } />
+			<SideCategoryList list = { categories } />
+			<SidePublicationsList title="Popular Articles" list = { popularArtcList } />
+			<SidePublicationsList title="Latest Articles" list = { latestArtcList } />
 		</div>
 	);
 }
 
-function SideCategoryList({apiView, title}) {
+function SideCategoryList({list}) {
 	return (
 			<>
-				<div className={cssSideBlockTitle}>{title}</div>
-				{
-					apiView.map(category => <SideCategory
-						title = { category.title } 
-						amount = {category.amount} 
-						key = {nanoid(5)}
-						/>)
-				}
-				
+				<div className={cssSideBlockTitle}>Categories</div>
+				{ list.map(ctgId => <SideCategory id = {ctgId} key = {ctgId} />) }
 			</>
-		
 	)
 };
 
-function SidePublicationsList({apiView, title}) {
+function SidePublicationsList({list, title}) {
 	return (
 		<>
 			<div className={cssSideBlockTitle}>{title}</div>
 			{
-				apiView.map(
-					publication => 
+				list.map(
+					id => 
 					<Publication
-						title = {publication.title}
-						cssLookup = {{
-							container: cssSidePublication,
-							title: cssSidePubTitle,
-						}}
-						key = {nanoid(5)}
+						id = {id}
+						cssOption = "Sidebar->Article"
+						key = {id}
 					>
-						{
-							publication.video ?
-							<FaFilm className={cssSidePubLogo} />
-							: <FaRegFileAlt className={cssSidePubLogo} />
-						}
 					</Publication>
 				)
 			}
@@ -224,11 +169,13 @@ function SidePublicationsList({apiView, title}) {
 	)
 };
 
-function SideCategory({ title, amount}) {
+function SideCategory({ id }) {
+	const objCategory = useRecoilValue(categoryAtom(id));
+
 	return (
 		<div className = {cssSideCategory}>
-			<div className={cssSideCategoryAmount}>{amount}</div>
-			<div>{title}</div>
+			<div className={cssSideCategoryAmount}>{objCategory.amount}</div>
+			<div>{objCategory.title}</div>
 		</div>
 	)
 };
