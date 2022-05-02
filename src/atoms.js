@@ -33,6 +33,36 @@ export const searchQuerySelector = selector({
 	},
 });
 
+export const liveSearchArticleSelector = selector({
+	key: "liveSearchArticleSelector",
+	get: ({get}) => {
+		const listArticles = get(catalogueArticlesAtom);
+		const searchQuery = get(searchQuerySelector);
+		const matchedArticles = [];
+		if (searchQuery) {
+			listArticles.forEach(id => {
+				const objArticle = {...get(articleAtom(id))};
+				if (objArticle.title.toLowerCase().includes(searchQuery.toLowerCase())) matchedArticles.push(objArticle.id);
+			});
+		};
+		return matchedArticles;
+	}
+});
+
+export const getArticleCategorySelector = selectorFamily({
+	key: "getArticleCategorySelector",
+	get: (articleId) => ({get}) => {
+		const listCategories = get(catalogueCategoriesAtom);
+		const matchedCategories = [];
+
+		listCategories.forEach((ctgId) => {
+			const objCategory = get(categoryAtom(ctgId));
+			if (objCategory.articles.includes(articleId)) matchedCategories.push(objCategory);
+		});
+		return matchedCategories;
+	}
+});
+
 // ***** This part serves main content indexing *******
 export const catalogueCategoriesAtom = atom({
 	key: "catalogueCategories",
@@ -122,4 +152,4 @@ export const latestArticleSelector = selector({
 		});
 		return latestArticles;
 	}
-})
+});

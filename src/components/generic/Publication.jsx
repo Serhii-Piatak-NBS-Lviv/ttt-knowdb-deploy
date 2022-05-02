@@ -121,6 +121,37 @@ const cssSidePubLogo = css`
 		font-size: 3.9vw;
 	}
 `;
+
+const liveSearchPublication = css`
+	display: flex;
+	flex-direction: row;
+	gap: 0.5vw;
+
+	@media (max-width: ${screenSizes.largeTablet}) {gap: 1vw};
+	@media (max-width: 538px) {
+		gap: 2vw;
+	};
+`;
+
+const liveSearchPubTitle = css`
+	@media (max-width: 1270px) {font-size: 1.2vw};
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.5vw};
+	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.3vw};
+	@media (max-width: 538px) {font-size: 2.7vw};
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 3.2vw};
+	@media (max-width: 350px) {font-size: 3.6vw};
+`;
+
+const liveSearchPubIcon = css`
+	font-size: 1.3vw;
+
+	@media (max-width: 1270px) {font-size: 1.5vw};
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.8vw};
+	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.5vw};
+	@media (max-width: 538px) {font-size: 3.6vw};
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 4.2vw};
+	@media (max-width: 350px) {font-size: 5.2vw};
+`;
 // #endregion
 
 // #region functions
@@ -142,6 +173,12 @@ const defineCSS = (styleOption) => {
 			return ({
 				container: cssSidePublication,
 				title: cssSidePubTitle,
+			});
+			break;
+		case "Livesearch->Article":
+			return ({
+				container: liveSearchPublication,
+				title: liveSearchPubTitle,
 			});
 			break;
 	}
@@ -188,9 +225,16 @@ const Publication = ({id, cssOption, type}) => {
 					: <FaRegFileAlt className={cssSidePubLogo} />
 				: null
 			}
+			{
+				type === 'article' && cssOption === "Livesearch->Article" ? 
+					publcItem.isVideo ? <FaFilm className={liveSearchPubIcon} />
+					: <FaRegFileAlt className={liveSearchPubIcon} />
+				: null
+			}
 			<div className={cssLookup.title}>
 				{publcItem.title}
 			</div>
+			{/* ToDo: after-Pictograms rendering */}
 		</div>
 	);
 }

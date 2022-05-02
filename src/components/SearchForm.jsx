@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
 import styled from '@emotion/styled';
@@ -9,9 +8,8 @@ import {FaSearch, FaRegHandPointer, FaRegEnvelope, FaFilm, FaRegFileAlt} from 'r
 import {Link} from 'react-router-dom';
 
 import Typing from './generic/Typing';
-import {vwContentIdx} from '../assets/apisimul/serverdata_main';
 import Publication from './generic/Publication';
-import {searchTypingSelector, searchQuerySelector} from '../atoms';
+import {searchTypingSelector, searchQuerySelector, liveSearchArticleSelector, getArticleCategorySelector} from '../atoms';
 
 // #region constants
 const SECTION_BACKGROUND = '#f5f5f5';
@@ -21,9 +19,6 @@ const INPUT_BORDER = '1px solid rgb(209,209,209)';
 const INPUT_PLACEHOLDER = 'Looking for answer? Just start typing a search term!';
 const INPUT_PLACEHOLDER_PHONE = 'Need answer? Type a search term!';
 
-const initState = {
-	data: [],
-}
 // #endregion
 
 // #region styled-components
@@ -305,36 +300,6 @@ const liveSearchItmCategory = css`
 	};
 `;
 
-const publication = css`
-	display: flex;
-	flex-direction: row;
-	gap: 0.5vw;
-
-	@media (max-width: ${screenSizes.largeTablet}) {gap: 1vw};
-	@media (max-width: 538px) {
-		gap: 2vw;
-	};
-`;
-
-const publicationIcon = css`
-	font-size: 1.3vw;
-
-	@media (max-width: 1270px) {font-size: 1.5vw};
-	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.8vw};
-	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.5vw};
-	@media (max-width: 538px) {font-size: 3.6vw};
-	@media (max-width: ${screenSizes.smartPhones}) {font-size: 4.2vw};
-	@media (max-width: 350px) {font-size: 5.2vw};
-`;
-
-const publicationTitle = css`
-	@media (max-width: 1270px) {font-size: 1.2vw};
-	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.5vw};
-	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.3vw};
-	@media (max-width: 538px) {font-size: 2.7vw};
-	@media (max-width: ${screenSizes.smartPhones}) {font-size: 3.2vw};
-	@media (max-width: 350px) {font-size: 3.6vw};
-`;
 // #endregion
 
 // #region functions
@@ -370,7 +335,7 @@ const ContactInvite = () => {
 
 	return (
 		<li className={contactLiveSearch}>
-			Steel haven't an answer after few queries? 
+			Still haven't an answer after few queries? 
 			<Link onClick={handleClick} className={btnLiveSearchContact} to="/contact">
 				<FaRegEnvelope />
 				<div>Ask Us!</div>
@@ -379,36 +344,37 @@ const ContactInvite = () => {
 	)
 };
 
-const LiveSearchItem = ({content, category}) => {
+const LiveSearchItem = ({id}) => {
+	const parentCategories = useRecoilValue(getArticleCategorySelector(id));
+
+	const commaSeparatedCategories = () => {
+		let categoriesCommaList = parentCategories[0].title;
+		if (parentCategories.length >= 1) {
+			for(let i = 1; i < parentCategories.length; i++) {
+				categoriesCommaList += `, ${parentCategories[i].title}`
+			};
+		};
+		return categoriesCommaList;
+	};
+
 	return (
 		<li className={liveSearchItm}>
-			<Publication 
-				title = {content.title} 
-				cssLookup = {{
-					container: publication,
-					title: publicationTitle,
-				}}>
-				{
-					content.video ?
-					<FaFilm className={publicationIcon} />
-					: <FaRegFileAlt className={publicationIcon}	/>
-				}
-			</Publication>
-			<div className={liveSearchItmCategory}>Category: {category}</div>
+			<Publication id = {id} cssOption = "Livesearch->Article" />
+			<div className={liveSearchItmCategory}>Category: {commaSeparatedCategories()}</div>
 		</li>
 	);
 };
 
-const QueryLiveSearch = ({data}) => {
+const QueryLiveSearch = () => {
 	const isTyping = useRecoilValue(searchTypingSelector);
+	const data = useRecoilValue(liveSearchArticleSelector);
 
 	return (
 		<ul className={liveSearchContainer}>
 			{isTyping && <li className={keepTypeTip}><FaRegHandPointer /> Keep typing for live search results...</li>}
 			{
 				!data.length ? <li>--- No results found ---</li> 
-				: data.map((category) => category.view.map((article) => <LiveSearchItem content={article} category={category.category} />))
-				
+				: data.map((id) => <LiveSearchItem id={id} key={`live-search-${id}`} />)				
 			}
 			<ContactInvite />
 		</ul>
@@ -417,7 +383,6 @@ const QueryLiveSearch = ({data}) => {
 
 const SearchForm = () => {
 	const [resizeListener, sizes] = useResizeAware();
-	const [appState, setAppState] = useState(initState);
 	const [isLoading, setIsLoading] = useRecoilState(searchTypingSelector);
 	const [searchQuery, setSearchQuery] = useRecoilState(searchQuerySelector);
 
@@ -428,33 +393,12 @@ const SearchForm = () => {
 	const handleType = ({target}) => {
 		setIsLoading(true);
 		setSearchQuery(target.value);
-
-		// Getting filtered articles
-		if (target.value) {
-			let dataQueried = vwContentIdx.reduce(
-				(acc, itm) => {
-					let results = itm.view.filter(
-						(article) => article.title.toLowerCase().includes(target.value.toLowerCase())
-					);
-					results.length && acc.push({
-						category: itm.category,
-						view: results,
-					});
-					return acc;
-				}
-			,[]);
-			// console.log(dataQueried);
-			setAppState(appSt => ({...appSt, data: dataQueried}));
-		} else {
-			setAppState(appSt => ({...appSt, data: []}));
-		};
-
 		delayStateLoadingFalse(2000);
 	}
 
 	return <Section>
 		{resizeListener}
-		<button className={searchIco} type="submit" disabled><FaSearch /> </button>	
+		<button className={searchIco} type="submit" disabled><FaSearch /></button>	
 		<Input
 			id="search-field"
 			placeholder={
@@ -463,7 +407,7 @@ const SearchForm = () => {
 			onChange={handleType}
 		/>
 		{ isLoading && <TypingAnimation /> }
-		{ searchQuery && <QueryLiveSearch data={appState.data} />}
+		{ searchQuery && <QueryLiveSearch />}
 	</Section>;
 }
 
