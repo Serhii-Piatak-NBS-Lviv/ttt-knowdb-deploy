@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useRecoilValue, useRecoilCallback} from 'recoil';
+import {useRecoilValue, useRecoilCallback, useResetRecoilState, useRecoilState} from 'recoil';
 
 import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from '../assets/apisimul/serverdata_main';
 import {categoryAtom, catalogueCategoriesAtom, articleAtom, catalogueArticlesAtom} from '../atoms';
@@ -34,6 +34,13 @@ function useEnumSiteContent(requestURL) {
 			// console.log(JSON.stringify(newCategoryObj));
 		};
 	});
+
+	const clearContentState = useRecoilCallback(({reset}) => {
+		return () =>  {
+			reset(catalogueCategoriesAtom);
+			reset(catalogueArticlesAtom);
+		};
+	})
 
 	const addArticle = useRecoilCallback(({set}) => {
 		return (oArticle) => {
@@ -74,7 +81,9 @@ function useEnumSiteContent(requestURL) {
 		// - all FAQ view.
 
 		// for spinning up static data set from JSON files being used
-	
+		
+		// Every time before enumerating content we should clear previous enumeration
+		clearContentState();
 
 		//**Enumerating categories */
 		vwCategories.map((category) => {
@@ -114,7 +123,6 @@ function useEnumSiteContent(requestURL) {
 				addArticle(article);
 			});
 		});
-		// ToDo: return cleanup function to avoid duplication while navigating menu links
 	}, []);
 
 	

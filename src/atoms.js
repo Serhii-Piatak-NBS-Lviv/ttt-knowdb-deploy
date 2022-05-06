@@ -128,6 +128,13 @@ export const publicationSelector = selectorFamily({
 	}
 });
 
+export const rmPublicationSelector = selectorFamily({
+	key: "rmPublicationSelector",
+	reset: ({id, type}) => ({reset}) => {
+
+	}
+})
+
 export const popularArticleSelector = selector({
 	key: "popularArticleSelector",
 	get: ({get}) => {

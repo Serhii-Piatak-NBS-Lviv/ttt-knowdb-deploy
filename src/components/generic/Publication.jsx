@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useRecoilValue} from 'recoil';
 import { cx, css } from '@emotion/css/macro';
-import {FaFolder, FaRegFileAlt, FaFilm} from 'react-icons/fa';
+import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell} from 'react-icons/fa';
 import {publicationSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
 
@@ -235,6 +235,18 @@ const Publication = ({id, cssOption, type}) => {
 				{publcItem.title}
 			</div>
 			{/* ToDo: after-Pictograms rendering */}
+			{
+				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
+					publcItem.isPopular ? <FaRegStar />
+					: null
+				: null
+			}
+			{
+				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
+					publcItem.isLatest ? <FaBell />
+					: null
+				: null
+			}
 		</div>
 	);
 }
