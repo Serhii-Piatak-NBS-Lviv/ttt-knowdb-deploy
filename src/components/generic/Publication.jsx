@@ -152,6 +152,14 @@ const liveSearchPubIcon = css`
 	@media (max-width: ${screenSizes.smartPhones}) {font-size: 4.2vw};
 	@media (max-width: 350px) {font-size: 5.2vw};
 `;
+
+const homeCnttPubAfterLogo = css`
+	font-size: 0.8vw;
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.4vw};
+	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.1vw};
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 2.9vw};
+`;
 // #endregion
 
 // #region functions
@@ -234,16 +242,16 @@ const Publication = ({id, cssOption, type}) => {
 			<div className={cssLookup.title}>
 				{publcItem.title}
 			</div>
-			{/* ToDo: after-Pictograms rendering */}
+			{/***** after-Pictograms rendering */}
 			{
 				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
-					publcItem.isPopular ? <FaRegStar />
+					publcItem.isPopular ? <FaRegStar className={homeCnttPubAfterLogo} />
 					: null
 				: null
 			}
 			{
 				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
-					publcItem.isLatest ? <FaBell />
+					publcItem.isLatest ? <FaBell className={homeCnttPubAfterLogo} />
 					: null
 				: null
 			}
