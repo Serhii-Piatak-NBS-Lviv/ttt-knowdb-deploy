@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {useRecoilValue, useRecoilCallback, useResetRecoilState, useRecoilState} from 'recoil';
+import axios from 'axios';
 
 import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from '../assets/apisimul/serverdata_main';
 import {categoryAtom, catalogueCategoriesAtom, articleAtom, catalogueArticlesAtom} from '../atoms';
+import {BASIC_URL_DEV} from '../endpoints';
 
 /**
  * This hook requests all major data from knowledge-base 
@@ -81,7 +83,7 @@ function useEnumSiteContent(requestURL) {
 		// - all FAQ view.
 
 		// for spinning up static data set from JSON files being used
-		
+		axios.get(`http://localhost:1234/get-all-reference-links?_format=json`).then((r) => console.log(r.data))
 		// Every time before enumerating content we should clear previous enumeration
 		clearContentState();
 

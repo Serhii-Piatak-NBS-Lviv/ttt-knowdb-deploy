@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+import React from 'react';
 import {jsx, keyframes} from '@emotion/react';
 import styled from '@emotion/styled/macro';
 import { css } from '@emotion/css/macro';

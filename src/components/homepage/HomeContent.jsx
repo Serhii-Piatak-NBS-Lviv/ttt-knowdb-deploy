@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import React, {memo} from 'react';
 import {useRecoilValue} from 'recoil';
 import {FaFolder} from 'react-icons/fa';
 import { cx, css } from '@emotion/css/macro';

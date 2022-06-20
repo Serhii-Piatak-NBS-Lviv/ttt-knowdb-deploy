@@ -1,6 +1,10 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { cx, css } from '@emotion/css/macro';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import {QueryClientProvider, QueryClient, useQuery} from 'react-query';
+import {ReactQueryDevtools} from 'react-query/devtools';
+
 import MainContainer from './components/MainContainer';
 import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
@@ -9,6 +13,7 @@ import FullSpinner from './components/FullSpinner';
 import Sidebar from './components/sidebar/Sidebar';
 import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from './assets/apisimul/serverdata_main';
 import HomeContent from './components/homepage/HomeContent';
+import {BASIC_URL_DEV, BASIC_URL_LIVE} from './endpoints';
 import useEnumSiteContent from './hooks/EnumSiteContent';
 
 // #region constants
@@ -48,6 +53,8 @@ const propTypes = {};
 
 const defaultProps = {};
 
+const ALL_REFERENCES_URL = `${BASIC_URL_DEV}/get-all-reference-links?_format=json`;
+
 /**
  * 
  */
@@ -64,6 +71,14 @@ const Body = () => {
 	)
 };
 
+const queryClient = new QueryClient();
+
+const AllKnowDB = () => {
+	const requestDrupal = useQuery('allContent', () => {
+		return axios.get(ALL_REFERENCES_URL)
+	})
+};
+
 const HomePage = () => {
 	const [loading, setLoading] = useState(true);
 	const [categories, articles] = useEnumSiteContent();
@@ -78,10 +93,13 @@ const HomePage = () => {
 			loading ? 
 				<FullSpinner text="Retrieving Homepage..." /> 
 			: 
-				<div className={cssBody}>
-					<Body />
-					<Sidebar />
-				</div>
+				<QueryClientProvider client={queryClient}>
+					<div className={cssBody}>
+						<Body />
+						<Sidebar />
+					</div>
+					<ReactQueryDevtools />
+				</QueryClientProvider>
 		}
 	</MainContainer>;
 }

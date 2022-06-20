@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { cx, css } from '@emotion/css/macro';
 import styled from '@emotion/styled/macro';
 import { screenSizes } from './assets/screenSizes';
