@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { cx, css } from '@emotion/css/macro';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import {QueryClientProvider, QueryClient, useQuery} from 'react-query';
+import {QueryClientProvider, QueryClient, useQueries, useQuery} from 'react-query';
 import {ReactQueryDevtools} from 'react-query/devtools';
 
 import MainContainer from './components/MainContainer';
@@ -14,7 +14,8 @@ import Sidebar from './components/sidebar/Sidebar';
 import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from './assets/apisimul/serverdata_main';
 import HomeContent from './components/homepage/HomeContent';
 import {BASIC_URL_DEV, BASIC_URL_LIVE} from './endpoints';
-import useEnumSiteContent from './hooks/EnumSiteContent';
+import EnumKnowledges from './EnumKnowledges';
+// import useEnumSiteContent from './hooks/EnumSiteContent';
 
 // #region constants
 
@@ -54,6 +55,7 @@ const propTypes = {};
 const defaultProps = {};
 
 const ALL_REFERENCES_URL = `${BASIC_URL_DEV}/get-all-reference-links?_format=json`;
+const KNOWLEDGE_CATEGORIES_URL = `${BASIC_URL_DEV}/get-knowledge-categories?_format=json`;
 
 /**
  * 
@@ -73,35 +75,81 @@ const Body = () => {
 
 const queryClient = new QueryClient();
 
-const AllKnowDB = () => {
-	const requestDrupal = useQuery('allContent', () => {
+const HomePageContent = () => {
+	
+	// const getShareLinks = useQuery('allSharedContent', 
+	// 	() => {
+	// 		return axios.get(ALL_REFERENCES_URL)
+	// 		.then((r) => r.data)
+	// 	},
+	// 	{
+	// 		enabled: true,
+	// 	}
+	// );
+
+	const getShareLinks = () => {
 		return axios.get(ALL_REFERENCES_URL)
-	})
+		.then((r) => r.data)
+	};
+
+	const getKnowledgeCategories = () => {
+		return axios.get(KNOWLEDGE_CATEGORIES_URL)
+		.then((r) => r.data)
+	};
+
+	const requestKnowledge = useQueries([
+
+		{ queryKey: 'allSharedContent', queryFn: getShareLinks, enabled: true },
+		{ queryKey: 'allKnowledgeCategories', queryFn: getKnowledgeCategories, enabled: true },
+
+	]);
+
+	return requestKnowledge.reduce((showSpinner, request) => (request.isLoading || showSpinner), false) ?
+		<FullSpinner text="Retrieving Homepage..." /> :
+		requestKnowledge.isError && requestKnowledge.error ? <p>{requestKnowledge.error.message}</p> :
+		<div className={cssBody}>
+			<EnumKnowledges 
+				categories={requestKnowledge[1].data} 
+				sharepoints={requestKnowledge[0].data}
+			/>
+			<Body />
+			<Sidebar />
+		</div>
 };
 
 const HomePage = () => {
-	const [loading, setLoading] = useState(true);
-	const [categories, articles] = useEnumSiteContent();
-	
-	useEffect(async () => {
-		await new Promise(resolve => setTimeout(resolve,1000));
-		setLoading(false);
-	});
 
 	return <MainContainer>
-		{
-			loading ? 
-				<FullSpinner text="Retrieving Homepage..." /> 
-			: 
-				<QueryClientProvider client={queryClient}>
-					<div className={cssBody}>
-						<Body />
-						<Sidebar />
-					</div>
-					<ReactQueryDevtools />
-				</QueryClientProvider>
-		}
+
+		<QueryClientProvider client={queryClient}>
+			<HomePageContent />
+			<ReactQueryDevtools />
+		</QueryClientProvider>
+	
 	</MainContainer>;
+
+	// const [loading, setLoading] = useState(true);
+	// const [categories, articles] = useEnumSiteContent();
+	
+	// useEffect(async () => {
+	// 	await new Promise(resolve => setTimeout(resolve,1000));
+	// 	setLoading(false);
+	// });
+
+	// return <MainContainer>
+	// 	{
+	// 		loading ? 
+	// 			<FullSpinner text="Retrieving Homepage..." /> 
+	// 		: 
+	// 			<QueryClientProvider client={queryClient}>
+	// 				<div className={cssBody}>
+	// 					<Body />
+	// 					<Sidebar />
+	// 				</div>
+	// 				<ReactQueryDevtools />
+	// 			</QueryClientProvider>
+	// 	}
+	// </MainContainer>;
 }
 
 HomePage.propTypes = propTypes;
