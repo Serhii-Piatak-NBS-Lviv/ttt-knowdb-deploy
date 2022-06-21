@@ -1,17 +1,17 @@
 {
-  "files": {
-    "main.css": "/ttt-knowdb-deploy/static/css/main.e6c13ad2.css",
-    "main.js": "/ttt-knowdb-deploy/static/js/main.675b1ae6.js",
-    "static/media/nestle_logo.png": "/ttt-knowdb-deploy/static/media/nestle_logo.25db8695d17719a1ca70.png",
-    "static/media/coming_soon.jpg": "/ttt-knowdb-deploy/static/media/coming_soon.14626190954f267020a0.jpg",
-    "static/media/purina_title-sharpen.png": "/ttt-knowdb-deploy/static/media/purina_title-sharpen.7e513f6da3db639ec657.png",
-    "static/media/IBS Logo.png": "/ttt-knowdb-deploy/static/media/IBS Logo.06e43061112ba2eeb2b1.png",
-    "index.html": "/ttt-knowdb-deploy/index.html",
-    "main.e6c13ad2.css.map": "/ttt-knowdb-deploy/static/css/main.e6c13ad2.css.map",
-    "main.675b1ae6.js.map": "/ttt-knowdb-deploy/static/js/main.675b1ae6.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.675b1ae6.js"
-  ]
+  "main.css": "/ttt-knowdb-deploy/static/css/main.9bc3c242.chunk.css",
+  "main.js": "/ttt-knowdb-deploy/static/js/main.89e51549.chunk.js",
+  "main.js.map": "/ttt-knowdb-deploy/static/js/main.89e51549.chunk.js.map",
+  "static/js/1.81c755ae.chunk.js": "/ttt-knowdb-deploy/static/js/1.81c755ae.chunk.js",
+  "static/js/1.81c755ae.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.81c755ae.chunk.js.map",
+  "runtime~main.js": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js",
+  "runtime~main.js.map": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js.map",
+  "static/media/IBS Logo.png": "/ttt-knowdb-deploy/static/media/IBS Logo.a51a8249.png",
+  "static/media/purina_title-sharpen.png": "/ttt-knowdb-deploy/static/media/purina_title-sharpen.a7ca3eae.png",
+  "static/media/coming_soon.jpg": "/ttt-knowdb-deploy/static/media/coming_soon.a4c78858.jpg",
+  "static/media/nestle_logo.png": "/ttt-knowdb-deploy/static/media/nestle_logo.f7fa61d9.png",
+  "static/css/main.9bc3c242.chunk.css.map": "/ttt-knowdb-deploy/static/css/main.9bc3c242.chunk.css.map",
+  "index.html": "/ttt-knowdb-deploy/index.html",
+  "precache-manifest.8d4fe55b23636697c2cc4b03ab57ea64.js": "/ttt-knowdb-deploy/precache-manifest.8d4fe55b23636697c2cc4b03ab57ea64.js",
+  "service-worker.js": "/ttt-knowdb-deploy/service-worker.js"
 }
