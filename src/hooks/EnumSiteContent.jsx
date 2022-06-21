@@ -83,7 +83,8 @@ function useEnumSiteContent(requestURL) {
 		// - all FAQ view.
 
 		// for spinning up static data set from JSON files being used
-		axios.get(`http://localhost:1234/get-all-reference-links?_format=json`).then((r) => console.log(r.data))
+		// axios.get(`http://localhost:1234/get-all-reference-links?_format=json`).then((r) => console.log(r.data))
+		axios.get(`${BASIC_URL_DEV}/get-all-reference-links?_format=json`).then((r) => console.log(r.data))
 		// Every time before enumerating content we should clear previous enumeration
 		clearContentState();
 
