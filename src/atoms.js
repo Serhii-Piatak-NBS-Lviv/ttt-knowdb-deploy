@@ -91,6 +91,7 @@ export const articleAtom = atomFamily({
 	default: {
 		title: "",
 		url: "",
+		type: "",
 		isVideo: false,
 		isPopular: false,
 		isLatest: false,

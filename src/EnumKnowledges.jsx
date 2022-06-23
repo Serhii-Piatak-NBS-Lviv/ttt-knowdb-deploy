@@ -24,10 +24,46 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 			};
 			set(catalogueCategoriesAtom, x => [...x, oCategory.uuid[0].value]);
 			set(categoryAtom(oCategory.uuid[0].value), newCategoryObj);
-			console.log(`----Adding a new category---`);
-			console.log(JSON.stringify(newCategoryObj));
+			// console.log(`----Adding a new category---`);
+			// console.log(JSON.stringify(newCategoryObj));
 		};
 	});
+
+	const addLinkOrArticle = useRecoilCallback(({set}) => {
+		return (oArticle) => {
+		// 	const isFromPopular = vwPopularArticles.reduce((result, article) => {
+		// 		if (article.id === oArticle.id) result = true;
+		// 		return result;
+		// 	}, false);
+
+		// 	const isFromLatest = vwLatestArticles.reduce((result, article) => {
+		// 		if (article.id === oArticle.id) result = true;
+		// 		return result;
+		// 	}, false);
+
+		const newArticleObj = {
+			id: oArticle.uuid[0].value,
+			type: oArticle.type[0].target_id,
+			title: oArticle.type[0].target_id === "reference_link" ? oArticle.field_url[0].title : "",
+			url: oArticle.type[0].target_id === "reference_link" ? oArticle.field_url[0].uri : "",
+			isVideo: oArticle.type[0].target_id === "reference_link" ? false : false, //ToDo: oArticle.video,
+			isPopular: false, //ToDo: isFromPopular,
+			isLatest: false,  //ToDo: isFromLatest,
+			description: oArticle.field_description[0].value,
+			content: oArticle.field_origin_type[0].value,
+		};
+
+		set(catalogueArticlesAtom, x => [...x, oArticle.uuid[0].value]);
+		set(articleAtom(oArticle.uuid[0].value), newArticleObj);
+
+			// console.log(`----Adding a new article---`);
+			// console.log(JSON.stringify(newArticleObj));
+		};
+	});
+
+	const enumLinkOrArticle = (arrLnkOrArtcl) => {
+		arrLnkOrArtcl.map((knowledge) => addLinkOrArticle(knowledge));
+	};
 
 	clearContentState();
 
@@ -53,6 +89,9 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 		// adding category atom to the atom family
 		addCategory(category, subCtg, ctgContent);
 	});
+
+	//** Enumerating sharePoints */
+	enumLinkOrArticle(sharepoints);
 
 	return <></>
 };

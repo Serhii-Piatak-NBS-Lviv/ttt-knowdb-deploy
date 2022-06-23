@@ -66,7 +66,7 @@ const Body = () => {
 		<>
 			{/* <ComingSoon /> */}
 			<div className={cssHomeContent}>
-				<PageTitle text="Article Categories" />
+				<PageTitle text="Knowledge Categories" />
 				<HomeContent />
 			</div>
 		</>
@@ -76,16 +76,6 @@ const Body = () => {
 const queryClient = new QueryClient();
 
 const HomePageContent = () => {
-	
-	// const getShareLinks = useQuery('allSharedContent', 
-	// 	() => {
-	// 		return axios.get(ALL_REFERENCES_URL)
-	// 		.then((r) => r.data)
-	// 	},
-	// 	{
-	// 		enabled: true,
-	// 	}
-	// );
 
 	const getShareLinks = () => {
 		return axios.get(ALL_REFERENCES_URL)
@@ -126,30 +116,7 @@ const HomePage = () => {
 			<ReactQueryDevtools />
 		</QueryClientProvider>
 	
-	</MainContainer>;
-
-	// const [loading, setLoading] = useState(true);
-	// const [categories, articles] = useEnumSiteContent();
-	
-	// useEffect(async () => {
-	// 	await new Promise(resolve => setTimeout(resolve,1000));
-	// 	setLoading(false);
-	// });
-
-	// return <MainContainer>
-	// 	{
-	// 		loading ? 
-	// 			<FullSpinner text="Retrieving Homepage..." /> 
-	// 		: 
-	// 			<QueryClientProvider client={queryClient}>
-	// 				<div className={cssBody}>
-	// 					<Body />
-	// 					<Sidebar />
-	// 				</div>
-	// 				<ReactQueryDevtools />
-	// 			</QueryClientProvider>
-	// 	}
-	// </MainContainer>;
+	</MainContainer>
 }
 
 HomePage.propTypes = propTypes;

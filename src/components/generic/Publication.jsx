@@ -205,6 +205,13 @@ const defaultProps = {
 };
 
 /**
+ * 
+ */
+const PreLogotype = ({oPublication, cssOption}) => {
+	return <div></div>;
+}
+
+/**
  * <title> prop - is exactly the publication title
  * <cssLookup> - is object contains classnames for css rules being applied
  * <children> - assumes pictogram
@@ -215,7 +222,9 @@ const Publication = ({id, cssOption, type}) => {
 
 	return (
 		<div className={cssLookup.container}>
+
 			{/****** before-Pictograms rendering */}
+			<PreLogotype oPublication = {publcItem} cssOption = {cssOption} />
 			{
 				type === 'article' && cssOption === "Homepage->Article" ? 
 					publcItem.isVideo ? <FaFilm className={homeContentPubLogo} />
@@ -239,9 +248,15 @@ const Publication = ({id, cssOption, type}) => {
 					: <FaRegFileAlt className={liveSearchPubIcon} />
 				: null
 			}
-			<div className={cssLookup.title}>
-				{publcItem.title}
-			</div>
+
+			{
+				publcItem.type === "reference_link" ? 
+				<a href={publcItem.url} target="_blank" className={cssLookup.title}>
+					{publcItem.title}
+				</a>
+				: null
+			}
+
 			{/***** after-Pictograms rendering */}
 			{
 				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 

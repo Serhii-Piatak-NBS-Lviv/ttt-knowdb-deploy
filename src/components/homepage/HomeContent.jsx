@@ -4,7 +4,7 @@ import {FaFolder} from 'react-icons/fa';
 import { cx, css } from '@emotion/css/macro';
 import Publication from '../generic/Publication';
 import {screenSizes} from '../../assets/screenSizes';
-import {nanoid} from 'nanoid';
+import ReadMore from '../generic/ReadMore';
 import {catalogueCategoriesAtom, categoryAtom, totalCtgArticleSelector} from '../../atoms';
 
 // #region styled-components
@@ -89,41 +89,46 @@ const categoryTitleAmount = css`
 const HomeCategory = ({ id }) => {
 	const categoryItem = useRecoilValue(categoryAtom(id));
 	const totalArticlesAmount = useRecoilValue(totalCtgArticleSelector(id));
+	let articlesToRender = [];
 
 	if (categoryItem.parent_category) {
 		return null;
 	} else {
-		return (
-			<div className={category}>
+		if (categoryItem.articles.length) {
+			categoryItem.articles.length > 5 ? 
+				articlesToRender = [...categoryItem.articles.slice(0,5)]
+				: articlesToRender = [...categoryItem.articles];
 
-			{/* Category title rendering */}
-			<div className={categoryTitle}>
-				<FaFolder className={titleIco} />
-				<div className={titleText}>
-					{categoryItem.title}
-					<span className={categoryTitleAmount}>({totalArticlesAmount})</span>
+			return (
+				<div className={category}>
+
+				{/* Category title rendering */}
+				<div className={categoryTitle}>
+					<FaFolder className={titleIco} />
+					<div className={titleText}>
+						{categoryItem.title}
+						<span className={categoryTitleAmount}>({totalArticlesAmount})</span>
+					</div>
 				</div>
-			</div>
 
-			{
-				// Subcategories titles rendering
-				categoryItem.subcategories.length ? 
-					categoryItem.subcategories.map(
-						subtgId =>
-							<Publication
-								id = {subtgId}
-								cssOption = "Homepage->Subcategory"
-								key = {subtgId}
-								type = "subcategory"
-							/>
-					)
-				: null
-			}
+				{
+					// Subcategories titles rendering
+					categoryItem.subcategories.length ? 
+						categoryItem.subcategories.map(
+							subtgId =>
+								<Publication
+									id = {subtgId}
+									cssOption = "Homepage->Subcategory"
+									key = {subtgId}
+									type = "subcategory"
+								/>
+						)
+					: null
+				}
 
-			{
-				//** Articles in Category */ 
-				categoryItem.articles.length ?
-					categoryItem.articles.map(
+				{
+					//** Articles in Category */ 
+					articlesToRender.map(
 						artclId =>
 							<Publication
 								id = {artclId}
@@ -131,11 +136,15 @@ const HomeCategory = ({ id }) => {
 								key = {artclId}
 							/>
 					)
-				: null
-			}
-			
-			</div>
+				}
+
+				{categoryItem.articles.length > 5 ? <ReadMore /> : null}
+				
+				</div>
 		)
+		} else {
+			return null;
+		};
 	}
 }
 
