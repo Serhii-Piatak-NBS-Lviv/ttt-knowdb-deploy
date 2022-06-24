@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "89e5154991b762b56f45",
+    "revision": "55fa5ec562c7f02b4364",
     "url": "/ttt-knowdb-deploy/static/css/main.9bc3c242.chunk.css"
   },
   {
-    "revision": "89e5154991b762b56f45",
-    "url": "/ttt-knowdb-deploy/static/js/main.89e51549.chunk.js"
+    "revision": "55fa5ec562c7f02b4364",
+    "url": "/ttt-knowdb-deploy/static/js/main.55fa5ec5.chunk.js"
   },
   {
-    "revision": "81c755ae00733e9792ac",
-    "url": "/ttt-knowdb-deploy/static/js/1.81c755ae.chunk.js"
+    "revision": "1acaefac1de729688c10",
+    "url": "/ttt-knowdb-deploy/static/js/1.1acaefac.chunk.js"
   },
   {
     "revision": "1ac67204e7cd7bdd81bc",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/ttt-knowdb-deploy/static/media/nestle_logo.f7fa61d9.png"
   },
   {
-    "revision": "935250149d4c5a67ff8d3b367d0b5fa8",
+    "revision": "9e65d6044e6075c339d44c4eec2c83b6",
     "url": "/ttt-knowdb-deploy/index.html"
   }
 ];

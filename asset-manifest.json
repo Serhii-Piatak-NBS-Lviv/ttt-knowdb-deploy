@@ -1,9 +1,9 @@
 {
   "main.css": "/ttt-knowdb-deploy/static/css/main.9bc3c242.chunk.css",
-  "main.js": "/ttt-knowdb-deploy/static/js/main.89e51549.chunk.js",
-  "main.js.map": "/ttt-knowdb-deploy/static/js/main.89e51549.chunk.js.map",
-  "static/js/1.81c755ae.chunk.js": "/ttt-knowdb-deploy/static/js/1.81c755ae.chunk.js",
-  "static/js/1.81c755ae.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.81c755ae.chunk.js.map",
+  "main.js": "/ttt-knowdb-deploy/static/js/main.55fa5ec5.chunk.js",
+  "main.js.map": "/ttt-knowdb-deploy/static/js/main.55fa5ec5.chunk.js.map",
+  "static/js/1.1acaefac.chunk.js": "/ttt-knowdb-deploy/static/js/1.1acaefac.chunk.js",
+  "static/js/1.1acaefac.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.1acaefac.chunk.js.map",
   "runtime~main.js": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js",
   "runtime~main.js.map": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js.map",
   "static/media/IBS Logo.png": "/ttt-knowdb-deploy/static/media/IBS Logo.a51a8249.png",
@@ -12,6 +12,6 @@
   "static/media/nestle_logo.png": "/ttt-knowdb-deploy/static/media/nestle_logo.f7fa61d9.png",
   "static/css/main.9bc3c242.chunk.css.map": "/ttt-knowdb-deploy/static/css/main.9bc3c242.chunk.css.map",
   "index.html": "/ttt-knowdb-deploy/index.html",
-  "precache-manifest.8d4fe55b23636697c2cc4b03ab57ea64.js": "/ttt-knowdb-deploy/precache-manifest.8d4fe55b23636697c2cc4b03ab57ea64.js",
+  "precache-manifest.45f29aed55084b638864819c0e5ee075.js": "/ttt-knowdb-deploy/precache-manifest.45f29aed55084b638864819c0e5ee075.js",
   "service-worker.js": "/ttt-knowdb-deploy/service-worker.js"
 }
