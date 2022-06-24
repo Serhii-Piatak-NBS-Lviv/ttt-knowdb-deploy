@@ -50,7 +50,7 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 			isPopular: false, //ToDo: isFromPopular,
 			isLatest: false,  //ToDo: isFromLatest,
 			description: oArticle.field_description[0].value,
-			content: oArticle.field_origin_type[0].value,
+			content: oArticle.type[0].target_id === "reference_link" ? oArticle.field_origin_type[0].value : "",
 		};
 
 		set(catalogueArticlesAtom, x => [...x, oArticle.uuid[0].value]);

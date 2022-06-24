@@ -23,7 +23,7 @@ const pin = css`
 	border-radius: 4px;
 	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
 	left: 55%;
-	transition: 0.2s;
+	//transition: 0.2s;
 
 	&::after {
 		content: "";
@@ -51,16 +51,15 @@ const pin = css`
 	};
 
 	&:hover {
-		transform: translateX(5%);
+		//transform: translateX(5%);
 
 		&::before {
 			background-color: #A03717;
+			border-color: #A03717;
 		};
 
 		&::after {
 			background-color: #A03717;
-			border-color: #A03717;
-			z-index: -1;
 		}
 	}
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useRecoilValue} from 'recoil';
 import { cx, css } from '@emotion/css/macro';
-import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell} from 'react-icons/fa';
+import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket} from 'react-icons/fa';
 import {publicationSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
 
@@ -31,6 +31,8 @@ const homeContentPubTitle = css`
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-size: 0.85vw;
     font-weight: 400;
+	text-decoration: none;
+	color: #45454C;
 
 	@media(max-width: ${screenSizes.largeTablet}) {
 		font-size: 1.6vw;
@@ -46,6 +48,11 @@ const homeContentPubTitle = css`
 		font-size: 3.2vw;
 		line-height: 5.1vw;
 	};
+
+	&:hover {
+		color: #A03717;
+		font-weight: 600;
+	}
 `;
 
 const homeContentPubLogo = css`
@@ -61,7 +68,7 @@ const homeContentPubLogo = css`
 
 	@media(max-width: ${screenSizes.mediumTablet}) {
 		font-size: 4.2vw;
-	}
+	};
 `;
 
 const homeContentSubLogo = css`
@@ -77,7 +84,7 @@ const homeContentSubLogo = css`
 
 	@media(max-width: ${screenSizes.smartPhones}) {
 		font-size: 3.5vw;
-	}
+	};
 `;
 
 const cssSidePublication = css`
@@ -107,7 +114,7 @@ const cssSidePubTitle = css`
 	@media(max-width: ${screenSizes.smartPhones}) {
 		font-size: 2.8vw;
 		line-height: 5.75vw;
-	}
+	};
 `;
 
 const cssSidePubLogo = css`
@@ -119,7 +126,7 @@ const cssSidePubLogo = css`
 
 	@media(max-width: ${screenSizes.smartPhones}) {
 		font-size: 3.9vw;
-	}
+	};
 `;
 
 const liveSearchPublication = css`
@@ -134,6 +141,9 @@ const liveSearchPublication = css`
 `;
 
 const liveSearchPubTitle = css`
+	text-decoration: none;
+	color: #45454C;
+
 	@media (max-width: 1270px) {font-size: 1.2vw};
 	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.5vw};
 	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.3vw};
@@ -169,24 +179,28 @@ const defineCSS = (styleOption) => {
 			return ({
 				container: homeContentPublication,
 				title: homeContentPubTitle,
+				icon: homeContentPubLogo,
 			});
 			break;
 		case "Homepage->Subcategory":
 			return ({
 				container: homeContentPublication,
 				title: homeContentPubTitle,
+				icon: homeContentSubLogo,
 			});
 			break;
 		case "Sidebar->Article":
 			return ({
 				container: cssSidePublication,
 				title: cssSidePubTitle,
+				icon: cssSidePubLogo,
 			});
 			break;
 		case "Livesearch->Article":
 			return ({
 				container: liveSearchPublication,
 				title: liveSearchPubTitle,
+				icon: liveSearchPubIcon,
 			});
 			break;
 	}
@@ -205,16 +219,59 @@ const defaultProps = {
 };
 
 /**
- * 
+ * This component responsible for displaying correct logo before the title
  */
-const PreLogotype = ({oPublication, cssOption}) => {
-	return <div></div>;
+const PreLogotype = ({oPublication, cssClass}) => {
+	if ( oPublication.type === "reference_link") {
+		switch (oPublication.content) {
+			case "Nestle corporate SharePoint":
+				return <FaShareSquare className={cssClass} />
+				break;
+			case "Nestle Confluence board":
+				return <FaConfluence className={cssClass} />
+				break;
+			case "Google drive":
+				return <FaGoogleDrive className={cssClass} />
+				break;
+			case "YouTube movie":
+				return <FaYoutube className={cssClass} />
+				break;
+			case "GitHub repository":
+				return <FaGithub className={cssClass} />
+			case "BitBucket repository":
+				return <FaBitbucket className={cssClass} />
+			default:
+				return <FaLink className={cssClass} />
+		}
+	} else if (oPublication.type === "subcategory") {
+		return <FaFolder className={cssClass} />
+	} else if (oPublication.isVideo) {
+		return <FaFilm className={cssClass} />
+	} else {
+		return <FaRegFileAlt className={cssClass} />;
+	};
+};
+
+/**
+ * This component responsible for displaying correct logo after the title
+ */
+const PostLogotype = ({oPublication}) => {
+	return (
+		<>
+			{
+				oPublication.type === 'article' || "reference_link" ? 
+					oPublication.isPopular ? <FaRegStar className={homeCnttPubAfterLogo} /> : 
+						oPublication.isLatest ? <FaBell className={homeCnttPubAfterLogo} /> : null
+				: null
+			}
+		</>
+	)
 }
 
 /**
- * <title> prop - is exactly the publication title
- * <cssLookup> - is object contains classnames for css rules being applied
- * <children> - assumes pictogram
+ * <id> prop - identificator by which item will be found inside recoil atom family
+ * <cssOption> - assumes styling which being applied to specific item
+ * <type> - specifies whether item will be a subcategory or article/share link
  */
 const Publication = ({id, cssOption, type}) => {
 	const publcItem = useRecoilValue(publicationSelector({type, id}));
@@ -223,53 +280,16 @@ const Publication = ({id, cssOption, type}) => {
 	return (
 		<div className={cssLookup.container}>
 
-			{/****** before-Pictograms rendering */}
-			<PreLogotype oPublication = {publcItem} cssOption = {cssOption} />
-			{
-				type === 'article' && cssOption === "Homepage->Article" ? 
-					publcItem.isVideo ? <FaFilm className={homeContentPubLogo} />
-					: <FaRegFileAlt className={homeContentPubLogo} />
-				: null
-			}
-			{
-				type === 'subcategory' ?
-					<FaFolder className={homeContentSubLogo} />
-				: null
-			}
-			{
-				type === 'article' && cssOption === "Sidebar->Article" ? 
-					publcItem.isVideo ? <FaFilm className={cssSidePubLogo} />
-					: <FaRegFileAlt className={cssSidePubLogo} />
-				: null
-			}
-			{
-				type === 'article' && cssOption === "Livesearch->Article" ? 
-					publcItem.isVideo ? <FaFilm className={liveSearchPubIcon} />
-					: <FaRegFileAlt className={liveSearchPubIcon} />
-				: null
-			}
-
 			{
 				publcItem.type === "reference_link" ? 
 				<a href={publcItem.url} target="_blank" className={cssLookup.title}>
+					<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
 					{publcItem.title}
+					<PostLogotype oPublication = {publcItem} />
 				</a>
 				: null
 			}
 
-			{/***** after-Pictograms rendering */}
-			{
-				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
-					publcItem.isPopular ? <FaRegStar className={homeCnttPubAfterLogo} />
-					: null
-				: null
-			}
-			{
-				type === 'article' && (cssOption === "Homepage->Article" || cssOption === "Livesearch->Article") ? 
-					publcItem.isLatest ? <FaBell className={homeCnttPubAfterLogo} />
-					: null
-				: null
-			}
 		</div>
 	);
 }
