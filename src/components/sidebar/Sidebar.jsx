@@ -5,7 +5,7 @@ import { cx, css } from '@emotion/css/macro';
 import {useRecoilValue} from 'recoil';
 import {screenSizes} from '../../assets/screenSizes';
 import {catalogueCategoriesAtom, categoryAtom, popularArticleSelector, latestArticleSelector} from '../../atoms';
-
+import {Link} from 'react-router-dom';
 // #region constants
 
 // #endregion
@@ -62,6 +62,7 @@ const cssSideCategoryAmount = css`
     color: #fff;
 	font-size: 0.8vw;
 	font-weight: 600;
+	text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -173,10 +174,12 @@ function SideCategory({ id }) {
 	const objCategory = useRecoilValue(categoryAtom(id));
 
 	return (
-		<div className = {cssSideCategory}>
-			<div className={cssSideCategoryAmount}>{objCategory.amount}</div>
-			<div>{objCategory.title}</div>
-		</div>
+		<Link to={`/categories/${id}`}>
+			<div className = {cssSideCategory}>
+				<div className={cssSideCategoryAmount}>{objCategory.amount}</div>
+				<div>{objCategory.title}</div>
+			</div>
+		</Link>
 	)
 };
 

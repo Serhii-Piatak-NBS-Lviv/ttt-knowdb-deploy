@@ -2,10 +2,13 @@ import React, {memo} from 'react';
 import {useRecoilValue} from 'recoil';
 import {FaFolder} from 'react-icons/fa';
 import { cx, css } from '@emotion/css/macro';
+import {Link} from 'react-router-dom';
+
 import Publication from '../generic/Publication';
 import {screenSizes} from '../../assets/screenSizes';
 import ReadMore from '../generic/ReadMore';
 import {catalogueCategoriesAtom, categoryAtom, totalCtgArticleSelector} from '../../atoms';
+
 
 // #region styled-components
 const container = css`
@@ -103,6 +106,7 @@ const HomeCategory = ({ id }) => {
 				<div className={category}>
 
 				{/* Category title rendering */}
+				<Link to={`/categories/${id}`}>
 				<div className={categoryTitle}>
 					<FaFolder className={titleIco} />
 					<div className={titleText}>
@@ -110,6 +114,7 @@ const HomeCategory = ({ id }) => {
 						<span className={categoryTitleAmount}>({totalArticlesAmount})</span>
 					</div>
 				</div>
+				</Link>
 
 				{
 					// Subcategories titles rendering
@@ -138,7 +143,7 @@ const HomeCategory = ({ id }) => {
 					)
 				}
 
-				{categoryItem.articles.length > 5 ? <ReadMore /> : null}
+				{categoryItem.articles.length > 5 ? <Link to={`/categories/${id}`}><ReadMore /></Link> : null}
 				
 				</div>
 		)

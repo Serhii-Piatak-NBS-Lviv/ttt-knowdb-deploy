@@ -74,10 +74,6 @@ const pin__green = css`
 		border-color: #A03717;
 	}
 `;
-
-const moreAnch = css`
-	
-`;
 // #endregion
 
 // #region functions
@@ -93,7 +89,7 @@ const defaultProps = {};
  * 
  */
 const ReadMore = () => {
-	return <a href="#" className={moreAnch}><div className={cx(pin, pin__green)}>See more</div></a>
+	return <div className={cx(pin, pin__green)}>See more</div>
 };
 
 ReadMore.propTypes = propTypes;

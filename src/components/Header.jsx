@@ -276,9 +276,9 @@ const Menu = ({ menuContainerStyles, menuItemStyles }) => {
 		<Link onClick={handleClick} to="/faqs">
 			<li className={menuItemStyles}>FAQs</li>
 		</Link>
-		<Link onClick={handleClick} to="/blogs">
+		<Link onClick={handleClick} to="/tools">
 			<li className={menuItemStyles}>
-				Blogs
+				Tools
 			</li>
 		</Link>
 		<Link onClick={handleClick} to="/contact">

@@ -11,6 +11,7 @@ import HomePage from './HomePage';
 import FAQsPage from './FAQsPage';
 import BlogsPage from './BlogsPage';
 import ContactPage from './ContactPage';
+import CategoryPage from './components/homepage/CategoryPage';
 import { screenSizes } from './assets/screenSizes';
 
 // #region constants
@@ -103,8 +104,9 @@ const App = () => {
         <Route exact path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/faqs" element={<FAQsPage />} />
-        <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/tools" element={<BlogsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/categories/:category_id" element={<CategoryPage />} />
       </Routes>
       <Footer>
         <Menu
