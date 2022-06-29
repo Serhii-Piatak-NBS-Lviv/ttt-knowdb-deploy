@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/css/macro';
 import PropTypes from 'prop-types';
+
 import { screenSizes } from '../assets/screenSizes';
 
 // #region constants
@@ -36,18 +37,25 @@ const styleRules = css`
 
 // #region component
 const propTypes = {
-	text: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string,
 };
 
 const defaultProps = {
-	text: "",
+	title: "",
+	description: "",
 };
 
 /**
  * 
  */
-const PageTitle = ({ text }) => {
-	return <h1 className={styleRules}>{text}</h1>;
+const PageTitle = ({ title, description }) => {
+
+	return <>
+		<h1 className={styleRules}>{title}
+			{description ? <div>{description.slice(3,-4)}</div> : null}
+		</h1>
+	</>;
 }
 
 PageTitle.propTypes = propTypes;

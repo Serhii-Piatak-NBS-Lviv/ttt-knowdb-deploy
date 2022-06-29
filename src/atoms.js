@@ -79,6 +79,7 @@ export const categoryAtom = atomFamily({
 	default: {
 		title: "",
 		url: "",
+		description: "",
 		parent_category: "",
 		amount: 0,
 		subcategories: [],

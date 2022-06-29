@@ -16,6 +16,7 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 			const newCategoryObj = {
 				id: oCategory.uuid[0].value,
 				title: oCategory.name[0].value,
+				description: oCategory.description[0].processed,
 				url: oCategory.path[0].alias,
 				parent_category: oCategory.parent[0].target_uuid,
 				amount: articles.length,

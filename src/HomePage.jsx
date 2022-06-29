@@ -66,7 +66,7 @@ const Body = () => {
 		<>
 			{/* <ComingSoon /> */}
 			<div className={cssHomeContent}>
-				<PageTitle text="Knowledge Categories" />
+				<PageTitle title="Knowledge Categories" />
 				<HomeContent />
 			</div>
 		</>
