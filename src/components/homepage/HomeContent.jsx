@@ -87,6 +87,14 @@ const categoryTitleAmount = css`
 	font-size: 0.8em;
 `;
 
+const cssCtgTitLink = css`
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+`;
+
 // #endregion
 
 const HomeCategory = ({ id }) => {
@@ -106,7 +114,7 @@ const HomeCategory = ({ id }) => {
 				<div className={category}>
 
 				{/* Category title rendering */}
-				<Link to={`/categories/${id}`}>
+				<Link to={`/categories/${id}`} className={cssCtgTitLink}>
 				<div className={categoryTitle}>
 					<FaFolder className={titleIco} />
 					<div className={titleText}>

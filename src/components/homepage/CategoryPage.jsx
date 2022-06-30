@@ -37,6 +37,76 @@ const cssHomeContent = css`
 		width: 100%;
 	};
 `;
+
+const cssKnowledgeBlock = css `
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #e6e6e6;
+	padding-bottom: 2vw;
+	padding-top: 1vw;
+	align-items: center;
+`;
+
+const cssPctContainer = css`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border: 1px solid gray;
+	border-radius: 7%;
+	padding: 1%;
+	width: 15%;
+	aspect-ratio: 1;
+	box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
+`;
+
+const cssKnowledge = css`
+	width: 60%;
+	width: 60%;
+	padding: 1.2vw 0;
+`;
+
+const cssPicto = css`
+	width: 5vw;
+	margin: auto;
+`;
+
+const cssPictoCaption = css`
+	text-align: center;
+	font-size: 0.6vw;
+	width: 50%;
+	align-self: center;
+	color: #45454C;
+`;
+
+const cssKnowledgeTitle = css`
+	text-decoration: none;
+	color: #45454C;
+	font-weight: 500;
+	font-size: 1.2vw;
+`;
+
+const cssKnowledgeDescr = css`
+	color: #383820;
+	font-weight: 300;
+	font-size: 0.9vw;
+	line-height: 1.35vw;
+`;
+
+const cssSeeMore = css`
+	text-decoration: none;
+	color: #a03717;
+	color: #a03717;
+	display: block;
+	position: relative;
+	top: 1.5vw;
+	font-style: italic;
+
+	&:hover {
+		text-decoration: underline;
+	}
+`;
 // #endregion
 
 // #region functions
@@ -48,28 +118,38 @@ const propTypes = {};
 
 const defaultProps = {};
 
-const PreLogotype = ({oPublication, cssClass}) => {
+const KnowledgeImage = ({oPublication, cssClass}) => {
+	let imgSource, imgAlt, imgCaption;
+
 	if ( oPublication.type === "reference_link") {
+		imgAlt = oPublication.content;
+		imgCaption = oPublication.content;
 		switch (oPublication.content) {
 			case "Nestle corporate SharePoint":
-				return <FaShareSquare className={cssClass} />
+				imgSource = `sharepoint.png`;
 				break;
 			case "Nestle Confluence board":
-				return <FaConfluence className={cssClass} />
+				imgSource = `confluence.png`;
 				break;
 			case "Google drive":
-				return <FaGoogleDrive className={cssClass} />
+				imgSource = `google-drive.png`;
 				break;
 			case "YouTube movie":
-				return <FaYoutube className={cssClass} />
+				imgSource = `youtube.jpeg`;
 				break;
 			case "GitHub repository":
-				return <FaGithub className={cssClass} />
+				imgSource = `github.jpeg`;
+				break;
 			case "BitBucket repository":
-				return <FaBitbucket className={cssClass} />
+				imgSource = `bitbucket.png`;
+				break;
 			default:
-				return <FaLink className={cssClass} />
+				imgSource = `weblink-general.png`;
 		}
+		return <figure className={cssPctContainer}>
+			<img src={require(`../../assets/${imgSource}`)} alt={imgAlt} className={cssPicto}/>
+			<figcaption className={cssPictoCaption}>{imgCaption}</figcaption>
+		</figure>
 	} else if (oPublication.type === "subcategory") {
 		return <FaFolder className={cssClass} />
 	} else if (oPublication.isVideo) {
@@ -86,17 +166,20 @@ const Knowledge = ({id}) => {
 	const knowlItem = useRecoilValue(publicationSelector({id, type: 'article'}));
 	
 	return (
-		<div>
-			{
-				knowlItem.type === "reference_link" ? 
-				<a href={knowlItem.url} target="_blank">
-					{knowlItem.title}
-					
-				</a>
-				: null
-			}
-			<p>{knowlItem.description}</p>
-			<PreLogotype oPublication = {knowlItem} />
+		<div className={cssKnowledgeBlock}>
+			<div className={cssKnowledge}>
+				{
+					knowlItem.type === "reference_link" ? 
+					<a href={knowlItem.url} target="_blank" className={cssKnowledgeTitle}>
+						{knowlItem.title}
+						
+					</a>
+					: null
+				}
+				<p className={cssKnowledgeDescr}>{knowlItem.description}</p>
+				<a href={knowlItem.url} target="_blank" className={cssSeeMore}>See more &rarr;</a>
+			</div>
+			<KnowledgeImage oPublication = {knowlItem} />
 		</div>
 	)
 };

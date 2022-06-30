@@ -33,6 +33,15 @@ const styleRules = css`
     	padding-bottom: 3vw;
 	};
 `;
+
+const cssDescription = css`
+	color: #808080;
+	font-size: 1vw;
+	font-weight: 246;
+	font-style: italic;
+	margin-top: 0.4vw;
+	letter-spacing: 0.05em;
+`;
 // #endregion
 
 // #region component
@@ -53,7 +62,7 @@ const PageTitle = ({ title, description }) => {
 
 	return <>
 		<h1 className={styleRules}>{title}
-			{description ? <div>{description.slice(3,-4)}</div> : null}
+			{description ? <div className={cssDescription}>{description.slice(3,-4)}</div> : null}
 		</h1>
 	</>;
 }

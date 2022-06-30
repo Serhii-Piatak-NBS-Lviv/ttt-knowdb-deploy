@@ -114,6 +114,20 @@ const cssSideBlockTitle = css`
 		font-size: 3.4vw;
 	}
 `;
+
+const cssCtgr = css`
+	text-decoration: none;
+
+	
+`;
+
+const cssCatgrTitle = css`
+	&:hover {
+		color: #a03717;
+		font-weight: 600;
+	};
+`;
+
 // #endregion
 
 // #region functions
@@ -174,10 +188,10 @@ function SideCategory({ id }) {
 	const objCategory = useRecoilValue(categoryAtom(id));
 
 	return (
-		<Link to={`/categories/${id}`}>
+		<Link to={`/categories/${id}`} className={cssCtgr} >
 			<div className = {cssSideCategory}>
 				<div className={cssSideCategoryAmount}>{objCategory.amount}</div>
-				<div>{objCategory.title}</div>
+				<div className={cssCatgrTitle}>{objCategory.title}</div>
 			</div>
 		</Link>
 	)
