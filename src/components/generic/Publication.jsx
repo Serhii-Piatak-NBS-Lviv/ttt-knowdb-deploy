@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useRecoilValue} from 'recoil';
-import { cx, css } from '@emotion/css/macro';
+import { css } from '@emotion/css/macro';
 import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket} from 'react-icons/fa';
 import {publicationSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
@@ -282,7 +282,7 @@ const Publication = ({id, cssOption, type}) => {
 
 			{
 				publcItem.type === "reference_link" ? 
-				<a href={publcItem.url} target="_blank" className={cssLookup.title}>
+				<a href={publcItem.url} target="_blank" rel="noopener noreferrer" className={cssLookup.title}>
 					<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
 					{publcItem.title}
 					<PostLogotype oPublication = {publcItem} />

@@ -3,6 +3,7 @@ import { css } from '@emotion/css/macro';
 import axios from 'axios';
 import {QueryClientProvider, QueryClient, useQueries} from 'react-query';
 import {ReactQueryDevtools} from 'react-query/devtools';
+// import {useRecoilState} from 'recoil';
 
 import MainContainer from './components/MainContainer';
 // import ComingSoon from './components/ComingSoon';
@@ -13,6 +14,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import HomeContent from './components/homepage/HomeContent';
 import {BASIC_URL_DEV} from './endpoints';
 import EnumKnowledges from './EnumKnowledges';
+// import {searchQuerySelector} from './atoms';
 // import useEnumSiteContent from './hooks/EnumSiteContent';
 
 // #region constants
@@ -57,6 +59,8 @@ const KNOWLEDGE_CATEGORIES_URL = `${BASIC_URL_DEV}/get-knowledge-categories?_for
  */
 
 const Body = () => {
+	// const [, setSearchQuery] = useRecoilState(searchQuerySelector);
+	// onClick={setSearchQuery("")}
 	return (
 		<>
 			{/* <ComingSoon /> */}
@@ -71,6 +75,7 @@ const Body = () => {
 const queryClient = new QueryClient();
 
 const HomePageContent = () => {
+	
 
 	const getShareLinks = () => {
 		return axios.get(ALL_REFERENCES_URL)

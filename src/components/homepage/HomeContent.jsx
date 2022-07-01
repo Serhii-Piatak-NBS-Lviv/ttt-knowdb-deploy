@@ -100,6 +100,7 @@ const cssCtgTitLink = css`
 const HomeCategory = ({ id }) => {
 	const categoryItem = useRecoilValue(categoryAtom(id));
 	const totalArticlesAmount = useRecoilValue(totalCtgArticleSelector(id));
+
 	let articlesToRender = [];
 
 	if (categoryItem.parent_category) {

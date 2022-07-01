@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {useRecoilState, useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
 import styled from '@emotion/styled';
@@ -6,6 +6,7 @@ import { screenSizes } from '../assets/screenSizes';
 import PropTypes from 'prop-types';
 import useResizeAware from 'react-resize-aware';
 import {FaSearch, FaRegHandPointer, FaRegEnvelope, FaFilm, FaRegFileAlt} from 'react-icons/fa';
+import { AiOutlineClear } from "react-icons/ai";
 import {Link} from 'react-router-dom';
 
 import Typing from './generic/Typing';
@@ -73,6 +74,9 @@ const searchIco = css`
     font-size: 1.3vw;
 	z-index: 1;
 	color: #45454C;
+	cursor: pointer;
+
+	&:hover {color: #a03717};
 
 	@media (max-width: ${screenSizes.largeTablet}) {
 		left: 5%;
@@ -152,6 +156,7 @@ const liveSearchContainer = css`
 	max-height: 55%;
     overflow-y: scroll;
 	overflow-x: hidden;
+	z-index: 2;
 
 	& > li {
 		display: flex;
@@ -386,6 +391,7 @@ const SearchForm = () => {
 	const [resizeListener, sizes] = useResizeAware();
 	const [isLoading, setIsLoading] = useRecoilState(searchTypingSelector);
 	const [searchQuery, setSearchQuery] = useRecoilState(searchQuerySelector);
+	const inputRef = useRef(null);
 
 	const delayStateLoadingFalse = (delay) => {
 		setTimeout(() => setIsLoading(false), delay);
@@ -397,15 +403,23 @@ const SearchForm = () => {
 		delayStateLoadingFalse(2000);
 	}
 
-	return <Section>
+	const resetSrchQuery = () => {
+		if (searchQuery) {
+			setSearchQuery("");
+			inputRef.current.value = '';
+		}
+	};
+
+	return <Section onClick={resetSrchQuery}>
 		{resizeListener}
-		<button className={searchIco} type="submit" disabled><FaSearch /></button>	
+		<button className={searchIco} type="submit" onClick={resetSrchQuery}>{searchQuery ? <AiOutlineClear /> : <FaSearch />}</button>	
 		<Input
 			id="search-field"
 			placeholder={
 				sizes.width <= parseInt(screenSizes.mediumTablet) ? INPUT_PLACEHOLDER_PHONE : INPUT_PLACEHOLDER
 			}
 			onChange={handleType}
+			ref={inputRef}
 		/>
 		{ isLoading && <TypingAnimation /> }
 		{ searchQuery && <QueryLiveSearch />}
