@@ -1,5 +1,5 @@
 import React from 'react';
-import {useRecoilValue, useRecoilCallback, useResetRecoilState, useRecoilState} from 'recoil';
+import { useRecoilCallback } from 'recoil';
 import {categoryAtom, catalogueCategoriesAtom, articleAtom, catalogueArticlesAtom} from './atoms';
 
 export const EnumKnowledges = ({categories, sharepoints}) => {
@@ -94,7 +94,7 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 	//** Enumerating sharePoints */
 	enumLinkOrArticle(sharepoints);
 
-	return <></>
+	return <div></div>
 };
 
 export default EnumKnowledges;

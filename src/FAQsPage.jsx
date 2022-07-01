@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import MainContainer from './components/MainContainer';
 import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
@@ -18,9 +17,6 @@ import FullSpinner from './components/FullSpinner';
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 /**
  * 
@@ -47,8 +43,6 @@ const FAQsPage = () => {
 	</MainContainer>;
 }
 
-FAQsPage.propTypes = propTypes;
-FAQsPage.defaultProps = defaultProps;
 // #endregion
 
 export default FAQsPage;

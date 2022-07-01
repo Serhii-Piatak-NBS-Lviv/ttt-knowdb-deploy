@@ -1,6 +1,5 @@
 import React from 'react';
 import { cx, css } from '@emotion/css/macro';
-import PropTypes from 'prop-types';
 
 // #region constants
 
@@ -81,9 +80,6 @@ const pin__green = css`
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 /**
  * 
@@ -92,8 +88,6 @@ const ReadMore = () => {
 	return <div className={cx(pin, pin__green)}>See more</div>
 };
 
-ReadMore.propTypes = propTypes;
-ReadMore.defaultProps = defaultProps;
 // #endregion
 
 export default ReadMore;

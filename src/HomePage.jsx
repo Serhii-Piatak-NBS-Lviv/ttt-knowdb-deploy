@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import { cx, css } from '@emotion/css/macro';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { css } from '@emotion/css/macro';
 import axios from 'axios';
-import {QueryClientProvider, QueryClient, useQueries, useQuery} from 'react-query';
+import {QueryClientProvider, QueryClient, useQueries} from 'react-query';
 import {ReactQueryDevtools} from 'react-query/devtools';
 
 import MainContainer from './components/MainContainer';
-import ComingSoon from './components/ComingSoon';
+// import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
 import FullSpinner from './components/FullSpinner';
 import Sidebar from './components/sidebar/Sidebar';
-import {vwCategories, vwPopularArticles, vwLatestArticles, vwContentIdx} from './assets/apisimul/serverdata_main';
 import HomeContent from './components/homepage/HomeContent';
-import {BASIC_URL_DEV, BASIC_URL_LIVE} from './endpoints';
+import {BASIC_URL_DEV} from './endpoints';
 import EnumKnowledges from './EnumKnowledges';
 // import useEnumSiteContent from './hooks/EnumSiteContent';
 
@@ -50,9 +48,6 @@ const cssHomeContent = css`
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 const ALL_REFERENCES_URL = `${BASIC_URL_DEV}/get-all-reference-links?_format=json`;
 const KNOWLEDGE_CATEGORIES_URL = `${BASIC_URL_DEV}/get-knowledge-categories?_format=json`;
@@ -119,8 +114,6 @@ const HomePage = () => {
 	</MainContainer>
 }
 
-HomePage.propTypes = propTypes;
-HomePage.defaultProps = defaultProps;
 // #endregion
 
 export default HomePage;

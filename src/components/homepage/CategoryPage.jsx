@@ -1,6 +1,5 @@
 import React from 'react';
-import { cx, css } from '@emotion/css/macro';
-import PropTypes from 'prop-types';
+import { css } from '@emotion/css/macro';
 import { useParams } from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
@@ -9,7 +8,7 @@ import Sidebar from '../sidebar/Sidebar';
 import PageTitle from '../PageTitle';
 import { screenSizes } from '../../assets/screenSizes';
 import {categoryAtom, publicationSelector} from '../../atoms';
-import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket} from 'react-icons/fa';
+import {FaFolder, FaRegFileAlt, FaFilm} from 'react-icons/fa';
 
 // #region constants
 
@@ -114,9 +113,6 @@ const cssSeeMore = css`
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 const KnowledgeImage = ({oPublication, cssClass}) => {
 	let imgSource, imgAlt, imgCaption;
@@ -152,10 +148,12 @@ const KnowledgeImage = ({oPublication, cssClass}) => {
 		</figure>
 	} else if (oPublication.type === "subcategory") {
 		return <FaFolder className={cssClass} />
-	} else if (oPublication.isVideo) {
-		return <FaFilm className={cssClass} />
 	} else {
-		return <FaRegFileAlt className={cssClass} />;
+		if (oPublication.isVideo) {
+			return <FaFilm className={cssClass} />
+		} else {
+			return <FaRegFileAlt className={cssClass} />
+		};
 	};
 };
 
@@ -170,14 +168,14 @@ const Knowledge = ({id}) => {
 			<div className={cssKnowledge}>
 				{
 					knowlItem.type === "reference_link" ? 
-					<a href={knowlItem.url} target="_blank" className={cssKnowledgeTitle}>
+					<a href={knowlItem.url} target="_blank" rel="noopener noreferrer" className={cssKnowledgeTitle}>
 						{knowlItem.title}
 						
 					</a>
 					: null
 				}
 				<p className={cssKnowledgeDescr}>{knowlItem.description}</p>
-				<a href={knowlItem.url} target="_blank" className={cssSeeMore}>See more &rarr;</a>
+				<a href={knowlItem.url} target="_blank" rel="noopener noreferrer" className={cssSeeMore}>See more &rarr;</a>
 			</div>
 			<KnowledgeImage oPublication = {knowlItem} />
 		</div>
@@ -213,8 +211,6 @@ const CategoryPage = () => {
 	</MainContainer>;
 }
 
-CategoryPage.propTypes = propTypes;
-CategoryPage.defaultProps = defaultProps;
 // #endregion
 
 export default CategoryPage;

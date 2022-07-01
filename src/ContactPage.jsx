@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { cx, css } from '@emotion/css/macro';
+import { css } from '@emotion/css/macro';
 import styled from '@emotion/styled/macro';
 import { screenSizes } from './assets/screenSizes';
-import PropTypes from 'prop-types';
 import MainContainer from './components/MainContainer';
-import ComingSoon from './components/ComingSoon';
+// import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
 import FullSpinner from './components/FullSpinner';
-import {vwCategories, vwPopularArticles, vwLatestArticles} from './assets/apisimul/serverdata_main';
 import Sidebar from './components/sidebar/Sidebar';
 import useResizeAware from 'react-resize-aware';
 
@@ -201,9 +199,6 @@ const alertBox = css`
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 /**
  * 
@@ -283,8 +278,6 @@ const ContactPage = () => {
 	</MainContainer>;
 };
 
-ContactPage.propTypes = propTypes;
-ContactPage.defaultProps = defaultProps;
 // #endregion
 
 export default ContactPage;

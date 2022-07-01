@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Publication from '../generic/Publication';
-import { cx, css } from '@emotion/css/macro';
+import { css } from '@emotion/css/macro';
 import {useRecoilValue} from 'recoil';
 import {screenSizes} from '../../assets/screenSizes';
 import {catalogueCategoriesAtom, categoryAtom, popularArticleSelector, latestArticleSelector} from '../../atoms';
@@ -135,9 +134,6 @@ const cssCatgrTitle = css`
 // #endregion
 
 // #region component
-const propTypes = {};
-
-const defaultProps = {};
 
 /**
  * 
@@ -197,8 +193,6 @@ function SideCategory({ id }) {
 	)
 };
 
-Sidebar.propTypes = propTypes;
-Sidebar.defaultProps = defaultProps;
 // #endregion
 
 export default Sidebar;
