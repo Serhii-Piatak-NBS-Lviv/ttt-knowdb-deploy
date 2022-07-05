@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilCallback } from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {categoryAtom, catalogueCategoriesAtom, articleAtom, catalogueArticlesAtom} from './atoms';
 
 export const EnumKnowledges = ({categories, sharepoints}) => {
@@ -15,6 +15,7 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 		return (oCategory, subCatgs, articles) => {
 			const newCategoryObj = {
 				id: oCategory.uuid[0].value,
+				type: "category",
 				title: oCategory.name[0].value,
 				description: oCategory.description[0].processed,
 				url: oCategory.path[0].alias,

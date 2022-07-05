@@ -9,6 +9,7 @@ import PageTitle from '../PageTitle';
 import { screenSizes } from '../../assets/screenSizes';
 import {categoryAtom, publicationSelector} from '../../atoms';
 import {FaFolder, FaRegFileAlt, FaFilm} from 'react-icons/fa';
+import Publication from '../generic/Publication';
 
 // #region constants
 
@@ -106,6 +107,11 @@ const cssSeeMore = css`
 		text-decoration: underline;
 	}
 `;
+
+const cssSubctgList = css`
+	display: flex;
+	flex-direction: row;
+`;
 // #endregion
 
 // #region functions
@@ -188,8 +194,22 @@ const Knowledge = ({id}) => {
 const CategoryKnowledges = ({category}) => {
 	return (
 		<>
-			{ category.articles.map((knowlId) => <Knowledge id={knowlId} />) }
+			{ category.articles.map((knowlId) => <Knowledge id={knowlId} key={knowlId}/>) }
 		</>
+	)
+};
+
+const SubcatgList = ({oCategory}) => {
+	return (
+		<div className={cssSubctgList}>
+			{ oCategory.subcategories.map((subctgId) => <Publication
+				id = {subctgId}
+				cssOption = "Homepage->Subcategory"
+				key = {subctgId}
+				type = "subcategory"
+				/>) 
+			}
+		</div>
 	)
 };
 
@@ -203,7 +223,12 @@ const CategoryPage = () => {
 	return <MainContainer>
 		<div className={cssBody}>
 			<div className={cssHomeContent}>
-				<PageTitle title={`Category: ${categoryItem.title}`} description={categoryItem.description} />
+				<PageTitle 
+					title={`Category: ${categoryItem.title}`} 
+					description={categoryItem.description}
+					categoryId={category_id}
+				/>
+				{categoryItem.subcategories.length ? <SubcatgList oCategory={categoryItem} /> : null}
 				<CategoryKnowledges category={categoryItem}/>
 			</div>
 			<Sidebar />

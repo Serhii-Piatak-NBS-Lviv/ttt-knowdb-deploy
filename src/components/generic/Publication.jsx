@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
 import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
+
 import {publicationSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
 
@@ -73,6 +75,7 @@ const homeContentPubLogo = css`
 
 const homeContentSubLogo = css`
 	font-size: 1vw;
+	margin-right: 5%;
 
 	@media(max-width: ${screenSizes.largeTablet}) {
 		font-size: 1.9vw;
@@ -243,7 +246,7 @@ const PreLogotype = ({oPublication, cssClass}) => {
 			default:
 				return <FaLink className={cssClass} />
 		}
-	} else if (oPublication.type === "subcategory") {
+	} else if (oPublication.type === "category") {
 		return <FaFolder className={cssClass} />
 	} else if (oPublication.isVideo) {
 		return <FaFilm className={cssClass} />
@@ -279,7 +282,6 @@ const Publication = ({id, cssOption, type}) => {
 
 	return (
 		<div className={cssLookup.container}>
-
 			{
 				publcItem.type === "reference_link" ? 
 				<a href={publcItem.url} target="_blank" rel="noopener noreferrer" className={cssLookup.title}>
@@ -287,7 +289,13 @@ const Publication = ({id, cssOption, type}) => {
 					{publcItem.title}
 					<PostLogotype oPublication = {publcItem} />
 				</a>
-				: null
+				:
+				type === "subcategory" ? 
+					<Link to={`/categories/${id}`} className={cssLookup.title}>
+						<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
+						{publcItem.title}
+					</Link>
+				:null
 			}
 
 		</div>

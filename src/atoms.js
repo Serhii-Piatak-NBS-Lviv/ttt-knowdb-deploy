@@ -78,6 +78,7 @@ export const categoryAtom = atomFamily({
 	key: "category",
 	default: {
 		title: "",
+		type: "category",
 		url: "",
 		description: "",
 		parent_category: "",
@@ -114,6 +115,21 @@ export const totalCtgArticleSelector = selectorFamily({
 		}
 		
 		return total;
+	}
+});
+
+// category genealogy selector
+export const ctGenealogySelector = selectorFamily({
+	key: "ctGenealogySelector",
+	get: ({id, routeAcc}) => ({get}) => {
+		const ctgr = get(categoryAtom(id));
+
+		if (ctgr.parent_category) {
+			routeAcc = [ctgr.parent_category, ...routeAcc];
+			get(ctGenealogySelector(ctgr.parent_category, routeAcc));
+		};
+
+		return routeAcc;
 	}
 });
 
