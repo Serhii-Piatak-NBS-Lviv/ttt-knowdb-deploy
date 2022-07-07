@@ -1,6 +1,8 @@
 import React from 'react';
 import { cx, css } from '@emotion/css/macro';
 
+import { screenSizes } from '../../assets/screenSizes';
+
 // #region constants
 
 // #endregion
@@ -22,7 +24,6 @@ const pin = css`
 	border-radius: 4px;
 	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
 	left: 55%;
-	//transition: 0.2s;
 
 	&::after {
 		content: "";
@@ -60,7 +61,11 @@ const pin = css`
 		&::after {
 			background-color: #A03717;
 		}
-	}
+	};
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.2vw};
+	@media(max-width: ${screenSizes.mediumTablet}) {font-size: 1.5vw;};
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 2.5vw;};
 `;
 
 const pin__green = css`

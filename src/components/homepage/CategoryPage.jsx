@@ -45,6 +45,8 @@ const cssKnowledgeBlock = css `
 	padding-bottom: 2vw;
 	padding-top: 1vw;
 	align-items: center;
+
+	@media (max-width: ${screenSizes.smartPhones}) {margin-bottom: 5vw};
 `;
 
 const cssPctContainer = css`
@@ -59,6 +61,8 @@ const cssPctContainer = css`
 	box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
 	-webkit-box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: -1px 0px 8px 0px rgba(0,0,0,0.75);
+
+	@media (max-width: ${screenSizes.smartPhones}) {width: 22%};
 `;
 
 const cssKnowledge = css`
@@ -70,6 +74,8 @@ const cssKnowledge = css`
 const cssPicto = css`
 	width: 5vw;
 	margin: auto;
+
+	@media (max-width: ${screenSizes.smartPhones}) {width: 12vw};
 `;
 
 const cssPictoCaption = css`
@@ -78,6 +84,13 @@ const cssPictoCaption = css`
 	width: 50%;
 	align-self: center;
 	color: #45454C;
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1vw};
+	@media(max-width: ${screenSizes.mediumTablet}) {font-size: 1.4vw};
+	@media (max-width: ${screenSizes.smartPhones}) {
+		font-size: 2.5vw;
+		width: 100%;
+	};
 `;
 
 const cssKnowledgeTitle = css`
@@ -85,6 +98,10 @@ const cssKnowledgeTitle = css`
 	color: #45454C;
 	font-weight: 500;
 	font-size: 1.2vw;
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.9vw};
+	@media(max-width: ${screenSizes.mediumTablet}) {font-size: 2.6vw};
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 3.5vw};
 `;
 
 const cssKnowledgeDescr = css`
@@ -92,6 +109,21 @@ const cssKnowledgeDescr = css`
 	font-weight: 300;
 	font-size: 0.9vw;
 	line-height: 1.35vw;
+
+	@media (max-width: ${screenSizes.largeTablet}) {
+		font-size: 1.3vw;
+		line-height: 1.9vw;
+	};
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		font-size: 1.9vw;
+		line-height: 2.7vw;
+	};
+
+	@media (max-width: ${screenSizes.smartPhones}) {
+		font-size: 2.8vw;
+		line-height: 4vw;
+	};
 `;
 
 const cssSeeMore = css`
@@ -105,12 +137,22 @@ const cssSeeMore = css`
 
 	&:hover {
 		text-decoration: underline;
-	}
+	};
+
+	@media (max-width: ${screenSizes.smartPhones}) {font-size: 3vw};
 `;
 
 const cssSubctgList = css`
 	display: flex;
 	flex-direction: row;
+
+	@media (max-width: ${screenSizes.smartPhones}) {
+		flex-direction: column;
+
+		& a {
+			width: 100%;
+		};
+	};
 `;
 // #endregion
 

@@ -15,6 +15,7 @@ import {categoryAtom, ctGenealogySelector} from '../atoms';
 // #endregion
 
 // #region styled-components
+
 const styleRules = css`
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	color: #1a1a1a;
@@ -47,11 +48,27 @@ const cssDescription = css`
 	font-style: italic;
 	margin-top: 0.4vw;
 	letter-spacing: 0.05em;
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.5vw};
+	@media(max-width: ${screenSizes.mediumTablet}) {font-size: 2.3vw};
+	@media (max-width: ${screenSizes.smartPhones}) {
+		font-size: 3.2vw;
+		margin-top: 1.5vw;
+	};
 `;
 
 const cssCrumb = css`
 	color: #808080;
 	font-size: 1vw;
+
+	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.4vw};
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		font-size: 2.2vw;
+		margin-right: 1vw;
+	};
+	@media (max-width: ${screenSizes.smartPhones}) {
+		font-size: 3vw;
+	};
 `;
 
 const cssCrumbLink = css`
@@ -61,7 +78,13 @@ const cssCrumbLink = css`
 	}
 `;
 
-const cssCrumBlock = css`margin-top: 0.6vw`;
+const cssCrumBlock = css`
+	margin-top: 0.6vw;
+
+	@media (max-width: ${screenSizes.smartPhones}) {
+		margin-top: 3.4vw;
+	};
+`;
 
 const cssCrumbDecor = css`text-decoration: none`;
 // #endregion
@@ -127,13 +150,19 @@ const PageTitle = ({ title, description, categoryId }) => {
 	const breadcrumbs = useBreadcrumbs(routes);
 
 	return <>
-		<h1 className={styleRules}>{title}
+
+		<h1 className={styleRules}>
+			
+			{title}
+
 			{description ? <div className={cssDescription}>{description.slice(3,-4)}</div> : null}
+
 			<div className={cssCrumBlock}>
 				{breadcrumbs[2] ? 
 					breadcrumbs.map(({ breadcrumb }) => <span>{breadcrumb}</span>)
 				: null}
 			</div>
+		
 		</h1>
 	</>;
 }
