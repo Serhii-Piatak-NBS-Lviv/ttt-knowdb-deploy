@@ -1,9 +1,9 @@
 {
   "main.css": "/ttt-knowdb-deploy/static/css/main.6ce874ca.chunk.css",
-  "main.js": "/ttt-knowdb-deploy/static/js/main.37e2748f.chunk.js",
-  "main.js.map": "/ttt-knowdb-deploy/static/js/main.37e2748f.chunk.js.map",
-  "static/js/1.a65f9c32.chunk.js": "/ttt-knowdb-deploy/static/js/1.a65f9c32.chunk.js",
-  "static/js/1.a65f9c32.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.a65f9c32.chunk.js.map",
+  "main.js": "/ttt-knowdb-deploy/static/js/main.90f0b9a4.chunk.js",
+  "main.js.map": "/ttt-knowdb-deploy/static/js/main.90f0b9a4.chunk.js.map",
+  "static/js/1.9f72aa72.chunk.js": "/ttt-knowdb-deploy/static/js/1.9f72aa72.chunk.js",
+  "static/js/1.9f72aa72.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.9f72aa72.chunk.js.map",
   "runtime~main.js": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js",
   "runtime~main.js.map": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js.map",
   "static/media/IBS Logo.png": "/ttt-knowdb-deploy/static/media/IBS Logo.a51a8249.png",
@@ -50,6 +50,6 @@
   "static/media/weblink-general.png": "/ttt-knowdb-deploy/static/media/weblink-general.1e9bba4e.png",
   "static/css/main.6ce874ca.chunk.css.map": "/ttt-knowdb-deploy/static/css/main.6ce874ca.chunk.css.map",
   "index.html": "/ttt-knowdb-deploy/index.html",
-  "precache-manifest.34802f7fd6d00fcfb56861977112005f.js": "/ttt-knowdb-deploy/precache-manifest.34802f7fd6d00fcfb56861977112005f.js",
+  "precache-manifest.18ad57b23257d9ffc994dee632d371af.js": "/ttt-knowdb-deploy/precache-manifest.18ad57b23257d9ffc994dee632d371af.js",
   "service-worker.js": "/ttt-knowdb-deploy/service-worker.js"
 }
