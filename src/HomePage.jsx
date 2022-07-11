@@ -53,6 +53,7 @@ const cssHomeContent = css`
 const ALL_REFERENCES_URL = `${BASIC_URL_DEV}/get-all-reference-links?_format=json`;
 const KNOWLEDGE_CATEGORIES_URL = `${BASIC_URL_DEV}/get-knowledge-categories?_format=json`;
 const RECENT_CONTENT_URL = `${BASIC_URL_DEV}/get-recent-content?_format=json`;
+const ALL_FAQS_URL = `${BASIC_URL_DEV}/get-all-faqs?_format=json`;
 
 /**
  * 
@@ -90,11 +91,17 @@ const HomePageContent = () => {
 		.then((r) => r.data)
 	};
 
+	const getAllFaqs = () => {
+		return axios.get(ALL_FAQS_URL)
+		.then((r) => r.data)
+	};
+
 	const requestKnowledge = useQueries([
 
 		{ queryKey: 'allSharedContent', queryFn: getShareLinks, enabled: true },
 		{ queryKey: 'allKnowledgeCategories', queryFn: getKnowledgeCategories, enabled: true },
 		{ queryKey: 'recentContent', queryFn: getRecentKnowledges, enabled: true },
+		{ queryKey: 'allFaqs', queryFn: getAllFaqs, enabled: true },
 
 	]);
 
