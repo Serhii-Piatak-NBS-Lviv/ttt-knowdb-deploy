@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {categoryAtom, catalogueCategoriesAtom, articleAtom, catalogueArticlesAtom} from './atoms';
 
-export const EnumKnowledges = ({categories, sharepoints}) => {
+export const EnumKnowledges = ({categories, sharepoints, recents}) => {
 
 	const clearContentState = useRecoilCallback(({reset}) => {
 		return () =>  {
@@ -38,10 +38,10 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 		// 		return result;
 		// 	}, false);
 
-		// 	const isFromLatest = vwLatestArticles.reduce((result, article) => {
-		// 		if (article.id === oArticle.id) result = true;
-		// 		return result;
-		// 	}, false);
+			const isFromLatest = recents.reduce((result, article) => {
+				if (article.uuid[0].value === oArticle.uuid[0].value) result = true;
+				return result;
+			}, false);
 
 		const newArticleObj = {
 			id: oArticle.uuid[0].value,
@@ -50,7 +50,7 @@ export const EnumKnowledges = ({categories, sharepoints}) => {
 			url: oArticle.type[0].target_id === "reference_link" ? oArticle.field_url[0].uri : "",
 			isVideo: oArticle.type[0].target_id === "reference_link" ? false : false, //ToDo: oArticle.video,
 			isPopular: false, //ToDo: isFromPopular,
-			isLatest: false,  //ToDo: isFromLatest,
+			isLatest: isFromLatest,
 			description: oArticle.field_description[0].value,
 			content: oArticle.type[0].target_id === "reference_link" ? oArticle.field_origin_type[0].value : "",
 		};

@@ -146,8 +146,8 @@ const Sidebar = () => {
 	return (
 		<div className={cssSideBar}>
 			<SideCategoryList list = { categories } />
-			<SidePublicationsList title="Popular Articles" list = { popularArtcList } />
-			<SidePublicationsList title="Latest Articles" list = { latestArtcList } />
+			<SidePublicationsList title="Favorite Knowledges" list = { popularArtcList } />
+			<SidePublicationsList title="Latest Knowledges" list = { latestArtcList } />
 		</div>
 	);
 }

@@ -103,6 +103,8 @@ const cssSidePubTitle = css`
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-size: 0.8vw;
     font-weight: 400;
+	text-decoration: none;
+	color: #45454C;
 
 	@media(max-width: ${screenSizes.largeTablet}) {
 		font-size: 1.3vw;
@@ -118,6 +120,11 @@ const cssSidePubTitle = css`
 		font-size: 2.8vw;
 		line-height: 5.75vw;
 	};
+
+	&:hover {
+		color: #A03717;
+		font-weight: 600;
+	}
 `;
 
 const cssSidePubLogo = css`
@@ -168,6 +175,7 @@ const liveSearchPubIcon = css`
 
 const homeCnttPubAfterLogo = css`
 	font-size: 0.8vw;
+	margin-left: 0.5em;
 
 	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.4vw};
 	@media (max-width: ${screenSizes.mediumTablet}) {font-size: 2.1vw};

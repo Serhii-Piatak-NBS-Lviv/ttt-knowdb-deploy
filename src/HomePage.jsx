@@ -52,6 +52,7 @@ const cssHomeContent = css`
 
 const ALL_REFERENCES_URL = `${BASIC_URL_DEV}/get-all-reference-links?_format=json`;
 const KNOWLEDGE_CATEGORIES_URL = `${BASIC_URL_DEV}/get-knowledge-categories?_format=json`;
+const RECENT_CONTENT_URL = `${BASIC_URL_DEV}/get-recent-content?_format=json`;
 
 /**
  * 
@@ -84,12 +85,20 @@ const HomePageContent = () => {
 		.then((r) => r.data)
 	};
 
+	const getRecentKnowledges = () => {
+		return axios.get(RECENT_CONTENT_URL)
+		.then((r) => r.data)
+	};
+
 	const requestKnowledge = useQueries([
 
 		{ queryKey: 'allSharedContent', queryFn: getShareLinks, enabled: true },
 		{ queryKey: 'allKnowledgeCategories', queryFn: getKnowledgeCategories, enabled: true },
+		{ queryKey: 'recentContent', queryFn: getRecentKnowledges, enabled: true },
 
 	]);
+
+	console.log(requestKnowledge)
 
 	return requestKnowledge.reduce((showSpinner, request) => (request.isLoading || showSpinner), false) ?
 		<FullSpinner text="Retrieving Homepage..." /> :
@@ -98,6 +107,7 @@ const HomePageContent = () => {
 			<EnumKnowledges 
 				categories={requestKnowledge[1].data} 
 				sharepoints={requestKnowledge[0].data}
+				recents={requestKnowledge[2].data}
 			/>
 			<Body />
 			<Sidebar />
