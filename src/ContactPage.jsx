@@ -211,7 +211,7 @@ const Body = () => {
 			{/* <ComingSoon /> */}
 			{resizeListener}
 			<div className={cssContent}>
-			<PageTitle text="Rise Your Question" />
+			<PageTitle title="Rise Your Question" />
 			
 			<form>
 				<div className={alertBox}>

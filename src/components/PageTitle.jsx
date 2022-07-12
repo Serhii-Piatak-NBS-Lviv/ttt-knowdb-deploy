@@ -119,7 +119,14 @@ const AncestorBreadcrumbs = ({cId}) => {
 	return <span>
 		{ancestors.length ? ancestors.map((ancId) => <Link to={`/categories/${ancId}`} key={ancId} className={cssCrumbDecor}><BreadcrumbItem cId={ancId} isAncestor={true}/></Link>) : null}
 	</span>
-}
+};
+
+const PageBreadcrumb = ({caption}) => {
+	return <span className={cssCrumb}>
+		<BsForwardFill className={cssCrumb}/>
+		{caption}
+	</span>
+};
 
 
 /**
@@ -145,9 +152,24 @@ const PageTitle = ({ title, description, categoryId }) => {
 				isAncestor: false 
 			},
 		},
+		{ 
+			path: '/faqs', 
+			breadcrumb: PageBreadcrumb, 
+			props: { 
+				caption: "FAQs",
+			},
+		},
+		{ 
+			path: '/contact', 
+			breadcrumb: PageBreadcrumb, 
+			props: { 
+				caption: "Contact",
+			},
+		},
 	];
 
 	const breadcrumbs = useBreadcrumbs(routes);
+	// console.log(breadcrumbs)
 
 	return <>
 
@@ -158,7 +180,7 @@ const PageTitle = ({ title, description, categoryId }) => {
 			{description ? <div className={cssDescription}>{description.slice(3,-4)}</div> : null}
 
 			<div className={cssCrumBlock}>
-				{breadcrumbs[2] ? 
+				{breadcrumbs[1].key !== "/home" ? 
 					breadcrumbs.map(({ breadcrumb }) => <span>{breadcrumb}</span>)
 				: null}
 			</div>

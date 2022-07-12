@@ -109,7 +109,7 @@ const HomePageContent = () => {
 	// console.log(requestKnowledge)
 
 	return requestKnowledge.reduce((showSpinner, request) => (request.isLoading || showSpinner), false) ?
-		<FullSpinner text="Retrieving Homepage..." /> :
+		<FullSpinner text="Retrieving Knowledges..." /> :
 		requestKnowledge.isError && requestKnowledge.error ? <p>{requestKnowledge.error.message}</p> :
 		<div className={cssBody}>
 			<EnumKnowledges 
