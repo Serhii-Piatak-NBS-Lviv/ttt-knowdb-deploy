@@ -178,3 +178,19 @@ export const latestArticleSelector = selector({
 		return latestArticles;
 	}
 });
+
+// ***** This part serves FAQs indexing *******
+export const catalogueFaqsAtom = atom({
+	key: "catalogueFaqs",
+	default: [],
+});
+
+export const faqsAtom = atomFamily({
+	key: "FAQs",
+	default: {
+		question: "",
+		answer: "",
+		type: "faq",
+		isOpened: false,
+	}
+});

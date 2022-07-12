@@ -13,6 +13,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import HomeContent from './components/homepage/HomeContent';
 import {BASIC_URL_DEV} from './endpoints';
 import EnumKnowledges from './EnumKnowledges';
+import EnumFAQs from './EnumFAQs';
 
 // import useEnumSiteContent from './hooks/EnumSiteContent';
 
@@ -105,7 +106,7 @@ const HomePageContent = () => {
 
 	]);
 
-	console.log(requestKnowledge)
+	// console.log(requestKnowledge)
 
 	return requestKnowledge.reduce((showSpinner, request) => (request.isLoading || showSpinner), false) ?
 		<FullSpinner text="Retrieving Homepage..." /> :
@@ -116,6 +117,7 @@ const HomePageContent = () => {
 				sharepoints={requestKnowledge[0].data}
 				recents={requestKnowledge[2].data}
 			/>
+			<EnumFAQs faqs={requestKnowledge[3].data} />
 			<Body />
 			<Sidebar />
 		</div>
