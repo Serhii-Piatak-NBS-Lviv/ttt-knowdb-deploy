@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import MainContainer from './components/MainContainer';
 import { css } from '@emotion/css/macro';
+import {useRecoilValue} from 'recoil';
 // import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
+import {catalogueFaqsAtom, faqsAtom} from './atoms';
 // import FullSpinner from './components/FullSpinner';
 
 // #region constants
@@ -52,6 +54,23 @@ const cssFaqContent = css`
 // 	)
 // }
 
+const FAQ = ({ id }) => {
+	const faqItem = useRecoilValue(faqsAtom(id));
+
+	return <div>
+		<div>{faqItem.question}</div>
+		<div>{faqItem.answer}</div>
+	</div>
+}
+
+const FAQsList = () => {
+	const faqsIds = useRecoilValue(catalogueFaqsAtom);
+
+	return <div>
+		{ faqsIds.map(id => <FAQ id = {id} key = {id} />) }
+	</div>
+};
+
 const FAQsPage = () => {
 	// const [loading, setLoading] = useState(true);
 
@@ -65,9 +84,10 @@ const FAQsPage = () => {
 		{/* {loading ? <FullSpinner text="Retrieving FAQs page..." /> : <Body />} */}
 		<div className={cssBody}>
 			<div className={cssFaqContent}>
-			<PageTitle 
+				<PageTitle 
 					title={`Frequently Asked Questions`}
 				/>
+				<FAQsList />
 			</div>
 		</div>
 	</MainContainer>;
