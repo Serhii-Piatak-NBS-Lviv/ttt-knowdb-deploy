@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import MainContainer from './components/MainContainer';
 import { css } from '@emotion/css/macro';
 import {useRecoilValue} from 'recoil';
@@ -6,6 +6,7 @@ import {useRecoilValue} from 'recoil';
 import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
 import {catalogueFaqsAtom, faqsAtom} from './atoms';
+import {BASIC_URL_DEV} from './endpoints';
 // import FullSpinner from './components/FullSpinner';
 
 // #region constants
@@ -56,10 +57,39 @@ const cssFaqContent = css`
 
 const FAQ = ({ id }) => {
 	const faqItem = useRecoilValue(faqsAtom(id));
+	const answRef = useRef();
+
+	const getCorrectImgUrl = (url) => (`${BASIC_URL_DEV}/${url.slice(url.indexOf('sites'))}`);
+
+	useEffect(() => {
+		const divAnswer = answRef.current;
+		divAnswer.innerHTML = faqItem.answer;
+		const chldAnswer = Array.from(answRef.current.childNodes);
+		// console.log(chldAnswer);
+		chldAnswer.map((el) => {
+			if (el.tagName === "FIGURE") {
+				// let imgUrl = el.firstElementChild.src;
+				// let imgurlCorrect = `${BASIC_URL_DEV}/${imgUrl.slice(imgUrl.indexOf('sites'))}`;
+				// console.log(imgUrl.split("/"))
+				// console.log(imgurlCorrect)
+				// console.log(`correct image url is: ${BASIC_URL_DEV}`)
+				// el.firstElementChild.src = imgurlCorrect;
+				el.firstElementChild.src = getCorrectImgUrl(el.firstElementChild.src);
+			};
+			if (el.tagName === "P") {
+				if (el.firstChild.tagName === "IMG") {
+					// console.log(el.firstChild.src)
+					el.firstChild.src = getCorrectImgUrl(el.firstChild.src);
+				}
+			}
+		})
+		// console.log(imgAnswer);
+		// answRef.current.innerHtml = faqItem.answer;
+	}, []);
 
 	return <div>
 		<div>{faqItem.question}</div>
-		<div>{faqItem.answer}</div>
+		<div ref={answRef} />
 	</div>
 }
 
