@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import MainContainer from './components/MainContainer';
-import { css } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css/macro';
 import {useRecoilValue} from 'recoil';
 
 // import ComingSoon from './components/ComingSoon';
@@ -58,59 +58,24 @@ const cssFaqPictogram = css`
 `;
 
 const cssFaqAnswer = css`
-
-`;
-
-const cssOpenedFaqAnswer = css`
-	${cssFaqAnswer}
-	display: block;
-	-webkit-animation: SHOW-BOX 0.5s ease;
-    -moz-animation: SHOW-BOX 0.5s ease;
-    -o-animation: SHOW-BOX 0.5s ease;
-    animation: SHOW-BOX 0.5s ease;
-
-	@-webkit-keyframes SHOW-BOX {
-		0%   { 
-			height: 0; 
-		}
-		100% { 
-			height: auto; 
-		}
-	};
-	
-	@-moz-keyframes SHOW-BOX {
-		0%   { 
-			height: 0; 
-		}
-		100% { 
-			height: auto; 
-		}
-	};
-	
-	@-o-keyframes SHOW-BOX {
-		0%   { 
-			height: 0; 
-		}
-		100% { 
-			height: auto; 
-		}
-	};
-	
-	@keyframes SHOW-BOX {
-		0%   { 
-			height: 0; 
-		}
-		100% { 
-			height: auto; 
-		}
-	};
-`;
-
-const cssClosedFaqAnswer = css`
-	${cssFaqAnswer}
+	transform-origin: 0;
+	transform: translateY(-3vw) scaleY(0);
+	transition:         0.7s ease-in-out;
+	opacity: 0;
 	height: 0;
-	display: none;
+
+	& > * {
+		position: unset;
+	}
+
+	&.opened, &.opened * {
+		opacity: 1;
+		transform: translateY(0) scaleY(1);
+		height: auto;
+	};
 `;
+
+
 // #endregion
 
 // #region functions
@@ -158,7 +123,7 @@ const FAQ = ({ id }) => {
 			<span className="qTitle">{faqItem.question} </span>
 		</div>
 
-		<div ref={answRef} className={isOpened ? cssOpenedFaqAnswer : cssClosedFaqAnswer}/>
+		<div ref={answRef} className={cx(cssFaqAnswer, isOpened ? "opened" : "")}/>
 		
 	</div>
 }
