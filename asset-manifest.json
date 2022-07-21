@@ -1,7 +1,7 @@
 {
   "main.css": "/ttt-knowdb-deploy/static/css/main.6ce874ca.chunk.css",
-  "main.js": "/ttt-knowdb-deploy/static/js/main.54ae58b0.chunk.js",
-  "main.js.map": "/ttt-knowdb-deploy/static/js/main.54ae58b0.chunk.js.map",
+  "main.js": "/ttt-knowdb-deploy/static/js/main.b7ac17d5.chunk.js",
+  "main.js.map": "/ttt-knowdb-deploy/static/js/main.b7ac17d5.chunk.js.map",
   "static/js/1.745b9807.chunk.js": "/ttt-knowdb-deploy/static/js/1.745b9807.chunk.js",
   "static/js/1.745b9807.chunk.js.map": "/ttt-knowdb-deploy/static/js/1.745b9807.chunk.js.map",
   "runtime~main.js": "/ttt-knowdb-deploy/static/js/runtime~main.1ac67204.js",
@@ -50,6 +50,6 @@
   "static/media/weblink-general.png": "/ttt-knowdb-deploy/static/media/weblink-general.1e9bba4e.png",
   "static/css/main.6ce874ca.chunk.css.map": "/ttt-knowdb-deploy/static/css/main.6ce874ca.chunk.css.map",
   "index.html": "/ttt-knowdb-deploy/index.html",
-  "precache-manifest.8f000afd7d0785a6c311cb7155f00cbe.js": "/ttt-knowdb-deploy/precache-manifest.8f000afd7d0785a6c311cb7155f00cbe.js",
+  "precache-manifest.ade6a11506a1cf4c3db4792ed5eb0cd7.js": "/ttt-knowdb-deploy/precache-manifest.ade6a11506a1cf4c3db4792ed5eb0cd7.js",
   "service-worker.js": "/ttt-knowdb-deploy/service-worker.js"
 }

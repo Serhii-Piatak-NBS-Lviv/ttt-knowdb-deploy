@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "54ae58b0ce4ced35d5f3",
+    "revision": "b7ac17d57e8b1a0b2f91",
     "url": "/ttt-knowdb-deploy/static/css/main.6ce874ca.chunk.css"
   },
   {
-    "revision": "54ae58b0ce4ced35d5f3",
-    "url": "/ttt-knowdb-deploy/static/js/main.54ae58b0.chunk.js"
+    "revision": "b7ac17d57e8b1a0b2f91",
+    "url": "/ttt-knowdb-deploy/static/js/main.b7ac17d5.chunk.js"
   },
   {
     "revision": "745b9807f25f1f350448",
@@ -184,7 +184,7 @@ self.__precacheManifest = [
     "url": "/ttt-knowdb-deploy/static/media/weblink-general.1e9bba4e.png"
   },
   {
-    "revision": "1215d31bdc6f3d9c0116501793eebe2f",
+    "revision": "61fc882329cff1a0a88d01797079e372",
     "url": "/ttt-knowdb-deploy/index.html"
   }
 ];
