@@ -50,7 +50,13 @@ const cssFaqQuestion = css`
 
 	& > .qTitle:hover {
 		color: #a03717;
-	}
+	};
+
+	@media(max-width: ${screenSizes.largeTablet}) {font-size: 2vw;};
+
+	@media(max-width: ${screenSizes.mediumTablet}) {font-size: 2.7vw;};
+
+	@media(max-width: ${screenSizes.smartPhones}) {font-size: 3.2vw;};
 `;
 
 const cssFaqPictogram = css`
@@ -63,6 +69,11 @@ const cssFaqAnswer = css`
 	transition:         0.7s ease-in-out;
 	opacity: 0;
 	height: 0;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	color: #383838;
+	font-size: 0.95vw;
+	line-height: 1.4vw;
+	letter-spacing: 0.5px;
 
 	& > * {
 		position: unset;
@@ -72,6 +83,24 @@ const cssFaqAnswer = css`
 		opacity: 1;
 		transform: translateY(0) scaleY(1);
 		height: auto;
+	};
+
+	@media(max-width: ${screenSizes.largeTablet}) {
+		font-size: 1.3vw;
+		line-height: 2vw;
+		letter-spacing: 0.7px;
+	};
+
+	@media(max-width: ${screenSizes.mediumTablet}) {
+		font-size: 1.7vw;
+		line-height: 2.7vw;
+		letter-spacing: 0.8px;
+	};
+
+	@media(max-width: ${screenSizes.smartPhones}) {
+		font-size: 2.5vw;
+		line-height: 3.7vw;
+		letter-spacing: 1px;
 	};
 `;
 
