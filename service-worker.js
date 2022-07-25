@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/ttt-knowdb-deploy/precache-manifest.ade6a11506a1cf4c3db4792ed5eb0cd7.js"
+  "/ttt-knowdb-deploy/precache-manifest.8077d98c47d3cd9bb49bde20aa69348c.js"
 );
 
 workbox.clientsClaim();
