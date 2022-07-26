@@ -37,12 +37,19 @@ export const liveSearchArticleSelector = selector({
 	key: "liveSearchArticleSelector",
 	get: ({get}) => {
 		const listArticles = get(catalogueArticlesAtom);
+		const listFaqs = get(catalogueFaqsAtom);
 		const searchQuery = get(searchQuerySelector);
 		const matchedArticles = [];
+		
 		if (searchQuery) {
 			listArticles.forEach(id => {
 				const objArticle = {...get(articleAtom(id))};
-				if (objArticle.title.toLowerCase().includes(searchQuery.toLowerCase())) matchedArticles.push(objArticle.id);
+				if (objArticle.title.toLowerCase().includes(searchQuery.toLowerCase())) matchedArticles.push({type: 'article', id: objArticle.id,});
+			});
+
+			listFaqs.forEach(id => {
+				const objFaq = {...get(faqsAtom(id))};
+				if (objFaq.question.toLowerCase().includes(searchQuery.toLowerCase())) matchedArticles.push({type: 'faq', id: objFaq.id,});
 			});
 		};
 		return matchedArticles;
@@ -192,5 +199,14 @@ export const faqsAtom = atomFamily({
 		answer: "",
 		type: "faq",
 		isOpened: false,
+	}
+});
+
+export const faqSelector = selectorFamily({
+	key: "faqSelector",
+	get: (id) => ({get}) => {
+		let faqItem;		
+		faqItem = {...get(faqsAtom(id))};
+		return faqItem;
 	}
 });

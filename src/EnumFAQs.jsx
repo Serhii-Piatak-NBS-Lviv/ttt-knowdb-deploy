@@ -32,6 +32,7 @@ const EnumFAQs = ({ faqs }) => {
 		return (oFaq) => {
 			const newFaqObj = {
 				id: oFaq.uuid[0].value,
+				type: "faq",
 				question: oFaq.title[0].value,
 				answer: oFaq.body[0].processed,
 			};

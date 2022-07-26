@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
-import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket} from 'react-icons/fa';
+import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket, FaQuestionCircle} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
-import {publicationSelector} from '../../atoms';
+import {publicationSelector, faqSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
 
 
@@ -164,6 +164,7 @@ const liveSearchPubTitle = css`
 
 const liveSearchPubIcon = css`
 	font-size: 1.3vw;
+	margin-right: 7px;
 
 	@media (max-width: 1270px) {font-size: 1.5vw};
 	@media (max-width: ${screenSizes.largeTablet}) {font-size: 1.8vw};
@@ -214,6 +215,13 @@ const defineCSS = (styleOption) => {
 				icon: liveSearchPubIcon,
 			});
 			break;
+		case "Livesearch->FAQ":
+			return ({
+				container: liveSearchPublication,
+				title: liveSearchPubTitle,
+				icon: liveSearchPubIcon,
+			});
+			break;
 	}
 }
 // #endregion
@@ -256,6 +264,8 @@ const PreLogotype = ({oPublication, cssClass}) => {
 		}
 	} else if (oPublication.type === "category") {
 		return <FaFolder className={cssClass} />
+	} else if (oPublication.type === "faq") {
+		return <FaQuestionCircle className={cssClass} />
 	} else if (oPublication.isVideo) {
 		return <FaFilm className={cssClass} />
 	} else {
@@ -285,8 +295,13 @@ const PostLogotype = ({oPublication}) => {
  * <type> - specifies whether item will be a subcategory or article/share link
  */
 const Publication = ({id, cssOption, type}) => {
-	const publcItem = useRecoilValue(publicationSelector({type, id}));
-	const cssLookup = defineCSS(cssOption);	
+	let publcItem;
+	// ToDo:  inject FAQs selector here
+	type === 'faq' ? 
+		publcItem = useRecoilValue(faqSelector(id))
+	:
+		publcItem = useRecoilValue(publicationSelector({type, id}));
+	const cssLookup = defineCSS(cssOption);
 
 	return (
 		<div className={cssLookup.container}>
@@ -303,7 +318,13 @@ const Publication = ({id, cssOption, type}) => {
 						<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
 						{publcItem.title}
 					</Link>
-				:null
+				:
+				type === "faq" ?
+					<div className={cssLookup.title}>
+						<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
+						{publcItem.question}
+					</div>
+				: null
 			}
 
 		</div>

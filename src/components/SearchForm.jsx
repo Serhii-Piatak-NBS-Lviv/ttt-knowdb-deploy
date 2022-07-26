@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom';
 import Typing from './generic/Typing';
 import Publication from './generic/Publication';
 import {searchTypingSelector, searchQuerySelector, liveSearchArticleSelector, getArticleCategorySelector} from '../atoms';
+import {shuffle} from '../helpers';
 
 // #region constants
 const SECTION_BACKGROUND = '#f5f5f5';
@@ -350,7 +351,7 @@ const ContactInvite = () => {
 	)
 };
 
-const LiveSearchItem = ({id}) => {
+const LiveSearchItem = ({id, type}) => {
 	const parentCategories = useRecoilValue(getArticleCategorySelector(id));
 
 	const commaSeparatedCategories = () => {
@@ -363,24 +364,32 @@ const LiveSearchItem = ({id}) => {
 		return categoriesCommaList;
 	};
 
-	return (
-		<li className={liveSearchItm}>
-			<Publication id = {id} cssOption = "Livesearch->Article" />
-			<div className={liveSearchItmCategory}>Category: {commaSeparatedCategories()}</div>
-		</li>
-	);
+	return <>
+		{type === 'article' ? 
+			<li className={liveSearchItm}>
+				<Publication id = {id} cssOption = "Livesearch->Article" />
+				<div className={liveSearchItmCategory}>Category: {commaSeparatedCategories()}</div>
+			</li>
+		: type === 'faq' ? 
+			<li className={liveSearchItm}>
+				<Publication id = {id} cssOption = "Livesearch->FAQ" type="faq" />
+			</li>
+		:null}
+	</>
 };
 
 const QueryLiveSearch = () => {
 	const isTyping = useRecoilValue(searchTypingSelector);
 	const data = useRecoilValue(liveSearchArticleSelector);
 
+	const dataShuffled = data.length ? shuffle(data) : [];
+
 	return (
 		<ul className={liveSearchContainer}>
 			{isTyping && <li className={keepTypeTip}><FaRegHandPointer /> Keep typing for live search results...</li>}
 			{
-				!data.length ? <li>--- No results found ---</li> 
-				: data.map((id) => <LiveSearchItem id={id} key={`live-search-${id}`} />)				
+				!dataShuffled.length ? <li>--- No results found ---</li> 
+				: dataShuffled.map((item) => <LiveSearchItem id={item.id} key={`live-search-${item.id}`} type={item.type}/>)				
 			}
 			<ContactInvite />
 		</ul>
