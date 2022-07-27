@@ -320,10 +320,10 @@ const Publication = ({id, cssOption, type}) => {
 					</Link>
 				:
 				type === "faq" ?
-					<div className={cssLookup.title}>
+					<Link to={'/faqs'} className={cssLookup.title}>
 						<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
 						{publcItem.question}
-					</div>
+					</Link>
 				: null
 			}
 
