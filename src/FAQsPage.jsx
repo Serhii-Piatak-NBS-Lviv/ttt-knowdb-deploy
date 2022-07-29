@@ -1,12 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
 import MainContainer from './components/MainContainer';
 import { css, cx } from '@emotion/css/macro';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useRecoilState} from 'recoil';
 
 // import ComingSoon from './components/ComingSoon';
 import PageTitle from './components/PageTitle';
 import { screenSizes } from './assets/screenSizes';
-import {catalogueFaqsAtom, faqsAtom} from './atoms';
+import {catalogueFaqsAtom, faqsAtom, lvsrchFaqSelectedAtomSelector} from './atoms';
 import {BASIC_URL_DEV} from './endpoints';
 import {FaPlusCircle, FaMinusCircle} from 'react-icons/fa';
 
@@ -51,6 +51,8 @@ const cssFaqQuestion = css`
 	& > .qTitle:hover {
 		color: #a03717;
 	};
+
+	&.opened {color: #a03717};
 
 	@media(max-width: ${screenSizes.largeTablet}) {font-size: 2vw;};
 
@@ -117,16 +119,23 @@ const cssFaqAnswer = css`
  * 
  */
 
-const FAQ = ({ id }) => {
+const FAQ = ({ id, isInitOpen }) => {
 	const faqItem = useRecoilValue(faqsAtom(id));
 	const answRef = useRef();
-	const [isOpened, setIsOpened] = useState(false);
+	const myFaq = useRef();
+	const [faqSelected, setFaqSelected] = useRecoilState(lvsrchFaqSelectedAtomSelector);
+
+	const [isOpened, setIsOpened] = useState();
 
 	const getCorrectImgUrl = (url) => (`${BASIC_URL_DEV}/${url.slice(url.indexOf('sites'))}`);
 
-	const updFaqState = () => setIsOpened(!isOpened);
+	const updFaqState = () => {
+		if (isOpened && faqSelected) setFaqSelected("");
+		setIsOpened(!isOpened);
+	};
 
 	useEffect(() => {
+		setIsOpened(isInitOpen);
 		const divAnswer = answRef.current;
 		divAnswer.innerHTML = faqItem.answer;
 		const chldAnswer = Array.from(answRef.current.childNodes);
@@ -140,28 +149,29 @@ const FAQ = ({ id }) => {
 					el.firstChild.src = getCorrectImgUrl(el.firstChild.src);
 				}
 			}
-		})
+		});
 		// console.log(imgAnswer);
 		// answRef.current.innerHtml = faqItem.answer;
-	}, []);
+	}, [isInitOpen]);
 
-	return <div className={cssFaq}>
+	return <div className={cssFaq} ref={myFaq}>
+		{isOpened ? myFaq.current.scrollIntoView() : null}
 
-		<div className={cssFaqQuestion} onClick={updFaqState}>
+		<div className={cx(cssFaqQuestion, isOpened ? "opened" : "")} onClick={updFaqState}>
 			{isOpened ? <FaMinusCircle className={cssFaqPictogram} /> : <FaPlusCircle className={cssFaqPictogram} />}
 			<span className="qTitle">{faqItem.question} </span>
 		</div>
 
 		<div ref={answRef} className={cx(cssFaqAnswer, isOpened ? "opened" : "")}/>
-		
 	</div>
 }
 
 const FAQsList = () => {
 	const faqsIds = useRecoilValue(catalogueFaqsAtom);
+	const [faqSelected, setFaqSelected] = useRecoilState(lvsrchFaqSelectedAtomSelector);
 
 	return <div>
-		{ faqsIds.map(id => <FAQ id = {id} key = {id} />) }
+		{ faqsIds.map(id => <FAQ id = {id} key = {id} isInitOpen={faqSelected === id ? true : false}/>) }
 	</div>
 };
 

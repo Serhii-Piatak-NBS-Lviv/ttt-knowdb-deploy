@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useRecoilValue} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import { css } from '@emotion/css/macro';
 import {FaFolder, FaRegFileAlt, FaFilm, FaRegStar, FaBell, FaGithub, FaGoogleDrive, FaYoutube, FaLink, FaShareSquare, FaConfluence, FaBitbucket, FaQuestionCircle} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
-import {publicationSelector, faqSelector} from '../../atoms';
+import {publicationSelector, faqSelector, lvsrchFaqSelectedAtomSelector} from '../../atoms';
 import {screenSizes} from '../../assets/screenSizes';
+import { BsKeyFill } from 'react-icons/bs';
 
 
 // #region constants
@@ -295,13 +296,21 @@ const PostLogotype = ({oPublication}) => {
  * <type> - specifies whether item will be a subcategory or article/share link
  */
 const Publication = ({id, cssOption, type}) => {
+	const [, setFaqSelected] = useRecoilState(lvsrchFaqSelectedAtomSelector);
+
 	let publcItem;
-	// ToDo:  inject FAQs selector here
+	
 	type === 'faq' ? 
 		publcItem = useRecoilValue(faqSelector(id))
 	:
 		publcItem = useRecoilValue(publicationSelector({type, id}));
+
 	const cssLookup = defineCSS(cssOption);
+
+	const findFaq = (key) => {
+		// console.log(`Selected FAQ id is: ${key}`);
+		setFaqSelected(key);
+	};
 
 	return (
 		<div className={cssLookup.container}>
@@ -320,9 +329,9 @@ const Publication = ({id, cssOption, type}) => {
 					</Link>
 				:
 				type === "faq" ?
-					<Link to={'/faqs'} className={cssLookup.title}>
+					<Link to={'/faqs'} className={cssLookup.title} onClick={({target}) => findFaq(target.id)} >
 						<PreLogotype oPublication = {publcItem} cssClass = {cssLookup.icon} />
-						{publcItem.question}
+						<span id={id}>{publcItem.question}</span>
 					</Link>
 				: null
 			}

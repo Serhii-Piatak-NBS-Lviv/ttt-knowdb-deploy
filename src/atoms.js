@@ -210,3 +210,22 @@ export const faqSelector = selectorFamily({
 		return faqItem;
 	}
 });
+
+export const livesearchFaqSelectedAtom = atom ({
+	key: "livesearchFaqSelectedAtom",
+	default: {
+		selected_faq: "",
+	}
+});
+
+export const lvsrchFaqSelectedAtomSelector = selector({
+	key: "lvsrchFaqSelectedAtomSelector",
+	get: ({get}) => {
+		const livesearchFaqAtom = {...get(livesearchFaqSelectedAtom)};
+		return livesearchFaqAtom.selected_faq;
+	},
+	set: ({get, set}, newVal) => {
+		const livesearchFaqAtom = {...get(livesearchFaqSelectedAtom), selected_faq: newVal};
+		set(livesearchFaqSelectedAtom, livesearchFaqAtom);
+	},
+});

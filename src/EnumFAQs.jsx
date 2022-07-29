@@ -33,6 +33,7 @@ const EnumFAQs = ({ faqs }) => {
 			const newFaqObj = {
 				id: oFaq.uuid[0].value,
 				type: "faq",
+				isOpened: false,
 				question: oFaq.title[0].value,
 				answer: oFaq.body[0].processed,
 			};
