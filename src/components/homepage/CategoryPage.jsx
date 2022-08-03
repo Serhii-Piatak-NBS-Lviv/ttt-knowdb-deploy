@@ -173,7 +173,7 @@ const KnowledgeImage = ({oPublication, cssClass}) => {
 				imgSource = `sharepoint.png`;
 				break;
 			case "Nestle Confluence board":
-				imgSource = `confluence.png`;
+				imgSource = `confluence.jpg`;
 				break;
 			case "Google drive":
 				imgSource = `google-drive.png`;

@@ -36,6 +36,7 @@ const homeContentPubTitle = css`
     font-weight: 400;
 	text-decoration: none;
 	color: #45454C;
+	width: 80%;
 
 	@media(max-width: ${screenSizes.largeTablet}) {
 		font-size: 1.6vw;
@@ -60,6 +61,7 @@ const homeContentPubTitle = css`
 
 const homeContentPubLogo = css`
 	font-size: 1.5vw;
+	margin-right: 2%;
 
 	@media(max-width: ${screenSizes.largeTablet}) {
 		font-size: 2.3vw;
