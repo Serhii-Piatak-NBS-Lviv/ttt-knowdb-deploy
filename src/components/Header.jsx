@@ -294,7 +294,9 @@ const Header = () => {
 		<div className={logoContainer}>
 			<img className={streamLogo} src={require('../assets/IBS Logo.png')} alt="ibs-logo" />
 			<div className={nbsKnowDbLogoContainer}>
-				<img className={nbsKnowDbLogo} src={require('../assets/purina_logo.png')} alt="knowledgebase-logo" />
+				<Link to="/home">
+					<img className={nbsKnowDbLogo} src={require('../assets/purina_logo.png')} alt="knowledgebase-logo" />
+				</Link>
 				<div>
 					{/* <Title>
 						Purina

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { css } from '@emotion/css/macro';
 import { useParams } from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
@@ -234,6 +234,10 @@ const Knowledge = ({id}) => {
  * 
  */
 const CategoryKnowledges = ({category}) => {
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	});
+
 	return (
 		<>
 			{ category.articles.map((knowlId) => <Knowledge id={knowlId} key={knowlId}/>) }
@@ -242,6 +246,7 @@ const CategoryKnowledges = ({category}) => {
 };
 
 const SubcatgList = ({oCategory}) => {
+
 	return (
 		<div className={cssSubctgList}>
 			{ oCategory.subcategories.map((subctgId) => <Publication

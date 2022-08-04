@@ -26,6 +26,7 @@ const cssBody = css`
 	display: flex;
 	justify-content: space-between;
     width: 100%;
+	scroll-behavior: smooth;
 
 	@media(max-width: ${screenSizes.mediumTablet}) {
 		flex-direction: column;
